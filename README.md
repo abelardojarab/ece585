@@ -14,3 +14,11 @@ November 6th, 2014
 4. bus class ---> Sean Hednrickson - 503-927-6617
 5. Controller ---> Abelardo Jara-Berrocal - 352-215-8524
 6. Controller ---) Meng Lei (Raymon) - 503-997-1749
+
+November 20th, 2014
+=================
+
+L3Cache LRU ---> Sean, Khalid
+L3Line class ---> Sean, Khalid
+MAKE file ---> Abelardo
+L3Cache class ---> Abelardo, Raymon
