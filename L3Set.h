@@ -7,14 +7,15 @@
  *****************************************************************************/
  
 #pragma once
-#include <string.h>
+#include <stdlib.h>
+#include <string>
+using std::string;
 
 class L3Set
 {
   public:
     // constructors
-	L3Set();
-	L3Set(int numLines);
+	L3Set(const int numLines);
 	
 	// destructor
 	~L3Set();
@@ -26,16 +27,43 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/	
-	string getData(int address);
+	string readData(unsigned int tag);
 	
-    /**
-	* DESC: 
-	* PARAM: state - MESIF, M=0, E=1, S=2, I=3, F=4
+	/**
+	* DESC:
+	* PARAM:
 	* RETURN:
 	* PRE-CONDITION:
 	* POST-CONDITION:
-	*/	
-	unsigned int saveData(int address, int state)
+	*/
+	string writeData(unsigned int tag, int mesifState);
+
+	/**
+	* DESC:
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION:
+	* POST-CONDITION:
+	*/
+	string checkHit(unsigned int tag);
+
+	/**
+	* DESC:
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION:
+	* POST-CONDITION:
+	*/
+	string mesifStateModifier(unsigned int tag, int mesifState);
+
+	/**
+	* DESC: Print the type of miss that occured
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION: 
+	* POST-CONDITION: 
+	*/
+	void printMissType();
 	
 	
   private:
@@ -47,7 +75,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	L3Line getLRU();
+	int getLRU();
 	
     /**
 	* DESC:
@@ -56,10 +84,28 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/	
-	unsigned int evict();
+	unsigned int evict(int evictedLineNum);
+	
+	/**
+	* DESC:
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION:
+	* POST-CONDITION:
+	*/
+	void changeLRUBits(int numLine);
+	
+	/**
+	* DESC:
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION:
+	* POST-CONDITION:
+	*/
+	int toggleBit(int bit);
 
-	L3Line L3Line[numLines]
-	LRUbits;
-	numLines;
+	int numLines;
+	L3Line *l3Line;
+	unsigned int lruBits;
 }; 
 

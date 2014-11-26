@@ -15,7 +15,7 @@ class L3Cache
 	L3Cache(int numLines, int numSets);
 	
 	// destructor
-	~L3Set();
+	~L3Cache();
 	
     /**
 	* DESC:
