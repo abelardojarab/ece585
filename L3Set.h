@@ -1,5 +1,5 @@
 /******************************************************************************
- * AUTHORS: Sean Hendrickson
+ * AUTHORS: Sean Hendrickson, Khalid ALkhulayfi
  * FILE: L3Set.h
  * LAST MODIFIED: 11/24/2014
  * DESCRIPTION: This file contains the class definition for the L3Set class.
@@ -9,7 +9,7 @@
 #pragma once
 #include <stdlib.h>
 #include <string>
-using std::string;
+using namespace std;
 
 class L3Set
 {
@@ -56,16 +56,6 @@ class L3Set
 	*/
 	string mesifStateModifier(unsigned int tag, int mesifState);
 
-	/**
-	* DESC: Print the type of miss that occured
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION: 
-	* POST-CONDITION: 
-	*/
-	void printMissType();
-	
-	
   private:
 
     /**
@@ -95,17 +85,8 @@ class L3Set
 	*/
 	void changeLRUBits(int numLine);
 	
-	/**
-	* DESC:
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION:
-	* POST-CONDITION:
-	*/
-	int toggleBit(int bit);
-
 	int numLines;
 	L3Line *l3Line;
-	unsigned int lruBits;
+	string lruBits;
 }; 
 

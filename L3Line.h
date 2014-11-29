@@ -10,16 +10,24 @@
 class L3Line
 {
   public:
-	  L3Line();
+	/**
+	* DESC: constructor to set a lines TAG bits and its current
+	*       state using MESIF.
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION:
+	* POST-CONDITION:
+	*/
+	L3Line();
 
-	  /**
-	  * DESC: constructor to set a lines TAG bits and its current
-	  *       state using MESIF.
-	  * PARAM:
-	  * RETURN:
-	  * PRE-CONDITION:
-	  * POST-CONDITION:
-	  */
+	/**
+	* DESC: constructor to set a lines TAG bits and its current
+	*       state using MESIF.
+	* PARAM:
+	* RETURN:
+	* PRE-CONDITION:
+	* POST-CONDITION:
+	*/
 	L3Line(unsigned int tag, int mesifState);
 	
 	// destructor
@@ -50,7 +58,7 @@ class L3Line
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	unsigned int setTag(int tag);
+	void setTag(int tag);
 	
 
 	/**
@@ -87,11 +95,11 @@ class L3Line
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/	
-	int print();
+	void print();
 	
   private:
 	  int tagBits;
-	  int mesifBits;
+	  int mesifState; // M=0, E=1, S=2,I=3, F=4
 	  int dirtyBit;
 }; 
 

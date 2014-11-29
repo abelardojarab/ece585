@@ -1,5 +1,5 @@
 /******************************************************************************
- * AUTHORS: Sean Hendrickson
+ * AUTHORS: Sean Hendrickson, Khalid ALkhulayfi
  * FILE: L3Line.cpp
  * LAST MODIFIED: 11/24/2014
  * DESCRIPTION: This file implements the L3Line class.
@@ -23,7 +23,7 @@ using namespace std;
 L3Line::L3Line()
 {
 	tagBits = 0;
-	mesifBits = 0;
+	mesifState = 5;
 	dirtyBit = 0;
 }
 
@@ -39,7 +39,7 @@ L3Line::L3Line()
 L3Line::L3Line(unsigned int tag, int mesifState)
 {
 	tagBits = tag;
-	mesifBits = mesifState;
+	this->mesifState = mesifState;
 	dirtyBit = 0;
 }
 
@@ -47,7 +47,7 @@ L3Line::L3Line(unsigned int tag, int mesifState)
 L3Line::~L3Line()
 {
 	tagBits = 0;
-	mesifBits = 0;
+	mesifState = 5;
 	dirtyBit = 0;
 }
 
@@ -60,7 +60,7 @@ L3Line::~L3Line()
 */
 void L3Line::setMESIF(int state)
 {
-	mesifBits = state;
+	mesifState = state;
 }
 
 /**
@@ -72,7 +72,7 @@ void L3Line::setMESIF(int state)
 */
 int L3Line::getMESIF()
 {
-	return mesifBits;
+	return mesifState;
 }
 
 /**
@@ -82,7 +82,7 @@ int L3Line::getMESIF()
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-unsigned int L3Line::setTag(int tag)
+void L3Line::setTag(int tag)
 {
 	tagBits = tag;
 }
@@ -137,9 +137,9 @@ int L3Line::getDirtyBit()
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-int L3Line::print()
+void L3Line::print()
 {
-	cout << "tag = " << tagBits << ", mesif = " << mesifBits
+	cout << "tag = " << tagBits << ", mesif = " << mesifState
 		<< ", dirty = " << dirtyBit << endl;
 }
 

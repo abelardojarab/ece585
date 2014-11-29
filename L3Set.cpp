@@ -1,5 +1,5 @@
 /******************************************************************************
- * AUTHORS: Sean Hendrickson
+ * AUTHORS: Sean Hendrickson, Khalid ALkhulayfi
  * FILE: L3Set.cpp
  * LAST MODIFIED: 11/24/2014
  * DESCRIPTION: This file implements the L3Set class.
@@ -13,7 +13,7 @@ L3Set::L3Set(const int numLines)
 {
 	this->numLines = numLines;
 	l3Line = new L3Line[numLines - 1];
-	lruBits = 0;
+	lruBits = "000000000000000";
 	
 }
 
@@ -22,7 +22,7 @@ L3Set::~L3Set()
 {
 	delete l3Line;
 	numLines = 0;
-	lruBits = 0;
+	lruBits = "000000000000000";
 }
 
 /**
@@ -64,10 +64,9 @@ string L3Set::writeData(unsigned int tag, int mesifState)
 		{
 			l3Line[i].setTag = tag;
 			l3Line[i].setMESIF = mesifState;
-			if (mesifState = 0) l3Line[i].setDirtyBit;
+			if (mesifState == 0) l3Line[i].setDirtyBit;
 			changeLRUBits(i);
 			return "done\n";
-			break;
 		}
 		else if (i == (numLines - 1))
 		{
@@ -76,7 +75,7 @@ string L3Set::writeData(unsigned int tag, int mesifState)
 			evict(evictedLineNum);
 			l3Line[evictedLineNum].setTag = tag;
 			l3Line[evictedLineNum].setMESIF = mesifState;
-			if (mesifState = 0) l3Line[evictedLineNum].setDirtyBit;
+			if (mesifState == 0) l3Line[evictedLineNum].setDirtyBit;
 			changeLRUBits(evictedLineNum);
 			return "done\n";
 		}
@@ -97,7 +96,6 @@ string L3Set::checkHit(unsigned int tag)
 		if (l3Line[i].getTag == tag)
 		{
 			return "hit\n";
-			break;
 		}
 		else if (i == (numLines - 1))
 		{
@@ -130,15 +128,6 @@ string L3Set::mesifStateModifier(unsigned int tag, int mesifState)
 	}
 }
 
-/**
-* DESC: Print the type of miss that occured
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
-*/
-void L3Set::printMissType()
-{}
 
 /**
 * DESC:
@@ -149,7 +138,67 @@ void L3Set::printMissType()
 */
 int L3Set::getLRU()
 {
-
+	if ( lruBits.at(0) == 0){
+		if ( lruBits.at(1) == 0){
+			if ( lruBits.at(3) == 0){
+				if ( lruBits.at(7) == 0){
+					return 0;
+				}else if ( lruBits.at(7) == 1){
+					return 1;
+				}
+			}else if(lruBits.at(3) == 1){
+				if ( lruBits.at(8) == 0){
+					return 2;
+				}else if ( lruBits.at(8) == 1){
+					return 3;
+				}
+			}
+		}else if(lruBits.at(1) == 1){
+			if ( lruBits.at(4) == 0){
+				if ( lruBits.at(9) == 0){
+					return 4;
+				}else if ( lruBits.at(9) == 1){
+					return 5;
+				}
+			}else if(lruBits.at(4) == 1){
+				if ( lruBits.at(10) == 0){
+					return 6;
+				}else if ( lruBits.at(10) == 1){
+					return 7;
+				}
+			}
+		}
+	}else if ( lruBits.at(0) == 1){
+		if ( lruBits.at(2) == 0){
+			if ( lruBits.at(5) == 0){
+				if ( lruBits.at(11) == 0){
+					return 8;
+				}else if ( lruBits.at(11) == 1){
+					return 9;
+				}
+			}else if(lruBits.at(5) == 1){
+				if ( lruBits.at(12) == 0){
+					return 10;
+				}else if ( lruBits.at(12) == 1){
+					return 11;
+				}
+			}
+		}else if(lruBits.at(2) == 1){
+			if ( lruBits.at(6) == 0){
+				if ( lruBits.at(13) == 0){
+					return 12;
+				}else if ( lruBits.at(13) == 1){
+					return 13;
+				}
+			}else if(lruBits.at(6) == 1){
+				if ( lruBits.at(14) == 0){
+					return 14;
+				}else if ( lruBits.at(14) == 1){
+					return 15;
+				}
+			}
+		}
+	}
 }
 
 /**
@@ -164,77 +213,106 @@ void L3Set::changeLRUBits(int numLine)
 	switch (numLine)
 	{
 	case 0: 
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "1";
+		lruBits.at(3) = "1";
+		lruBits.at(7) = "1";
+		break;
 	case 1: 
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "1";
+		lruBits.at(3) = "1";
+		lruBits.at(7) = "0";
 		break;
 	case 2: 
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "1";
+		lruBits.at(3) = "0";
+		lruBits.at(8) = "1";
+		break;
 	case 3:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "1";
+		lruBits.at(3) = "0";
+		lruBits.at(8) = "0";
 		break;
 	case 4:
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "0";
+		lruBits.at(4) = "1";
+		lruBits.at(9) = "1";
+		break;
 	case 5:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "0";
+		lruBits.at(4) = "1";
+		lruBits.at(9) = "0";
 		break;
 	case 6:
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "0";
+		lruBits.at(4) = "0";
+		lruBits.at(10) = "1";
+		break;
 	case 7:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "1";
+		lruBits.at(1) = "0";
+		lruBits.at(4) = "0";
+		lruBits.at(10) = "0";
 		break;
 	case 8:
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "1";
+		lruBits.at(5) = "1";
+		lruBits.at(11) = "1";
+		break;
 	case 9:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "1";
+		lruBits.at(5) = "1";
+		lruBits.at(11) = "0";
 		break;
 	case 10:
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "1";
+		lruBits.at(5) = "0";
+		lruBits.at(12) = "1";
+		break;
 	case 11:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "1";
+		lruBits.at(5) = "0";
+		lruBits.at(12) = "0";
 		break;
 	case 12:
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "0";
+		lruBits.at(6) = "1";
+		lruBits.at(13) = "1";
+		break;
 	case 13:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "0";
+		lruBits.at(6) = "1";
+		lruBits.at(13) = "0";
 		break;
 	case 14:
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "0";
+		lruBits.at(6) = "0";
+		lruBits.at(14) = "1";
+		break;
 	case 15:
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);
-		b = toggleBit(b);		
+		lruBits.at(0) = "0";
+		lruBits.at(2) = "0";
+		lruBits.at(6) = "0";
+		lruBits.at(14) = "0";
 		break;
 	default: 
 		break;
 	}
 }
 
-int L3Set::toggleBit(int bit)
-{
-	if (bit == 0)
-	{
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
-}
 
 /**
 * DESC:
@@ -244,4 +322,8 @@ int L3Set::toggleBit(int bit)
 * POST-CONDITION:
 */
 unsigned int L3Set::evict(int evictedLineNum)
-{}
+{
+	l3Line[evictedLineNum].setTag(0);
+	l3Line[evictedLineNum].setMESIF(5);
+	l3Line[evictedLineNum].setDirtyBit();
+}
