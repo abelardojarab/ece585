@@ -58,7 +58,7 @@ class L3Line
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	void setTag(int tag);
+	void setTag(string tag);
 	
 
 	/**
@@ -68,7 +68,7 @@ class L3Line
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	unsigned int getTag();
+	string getTag();
 
 	/**
 	* DESC: Used to toggle the dirty bit
@@ -98,7 +98,7 @@ class L3Line
 	void print();
 	
   private:
-	  int tagBits;
+	  string tagBits;
 	  int mesifState; // M=0, E=1, S=2,I=3, F=4
 	  int dirtyBit;
 }; 

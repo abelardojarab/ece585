@@ -33,7 +33,7 @@ class L3Cache
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/	
-	int putSnoopResult(int address, int snoopResult)
+	int putSnoopResult(int address, int snoopResult);
 	
     /**
 	* DESC:
@@ -42,7 +42,7 @@ class L3Cache
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	messageL2Cache(int busOp, int snoopResult);
+	void messageL2Cache(int busOp, int snoopResult);
 	
     /**
 	* DESC: reads the trace file

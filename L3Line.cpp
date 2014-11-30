@@ -22,7 +22,7 @@ using namespace std;
 */
 L3Line::L3Line()
 {
-	tagBits = 0;
+	tagBits = '0';
 	mesifState = 3;
 	dirtyBit = 0;
 }
@@ -46,7 +46,7 @@ L3Line::L3Line(unsigned int tag, int mesifState)
 // destructor
 L3Line::~L3Line()
 {
-	tagBits = 0;
+	tagBits = '0';
 	mesifState = 3;
 	dirtyBit = 0;
 }
@@ -82,7 +82,7 @@ int L3Line::getMESIF()
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-void L3Line::setTag(int tag)
+void L3Line::setTag(string tag)
 {
 	tagBits = tag;
 }
@@ -94,7 +94,7 @@ void L3Line::setTag(int tag)
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-unsigned int L3Line::getTag()
+string L3Line::getTag()
 {
 	return tagBits;
 }

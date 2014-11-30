@@ -32,7 +32,7 @@ L3Set::~L3Set()
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-string L3Set::readData(unsigned int tag)
+string L3Set::readData(string tag)
 {
 	for(int i = 0; i < numLines; ++i)
 	{
@@ -56,11 +56,11 @@ string L3Set::readData(unsigned int tag)
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-string L3Set::writeData(unsigned int tag, int mesifState)
+string L3Set::writeData(string tag, int mesifState)
 {
 	for (int i = 0; i < numLines; ++i)
 	{
-		if (l3Line[i].getTag() == 0)
+		if (l3Line[i].getTag() == "0")
 		{
 			l3Line[i].setTag(tag);
 			l3Line[i].setMESIF(mesifState);
@@ -90,7 +90,7 @@ string L3Set::writeData(unsigned int tag, int mesifState)
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-string L3Set::checkHit(unsigned int tag)
+string L3Set::checkHit(string tag)
 {
 	for (int i = 0; i < numLines; ++i)
 	{
@@ -112,7 +112,7 @@ string L3Set::checkHit(unsigned int tag)
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-string L3Set::mesifStateModifier(unsigned int tag, int mesifState)
+string L3Set::mesifStateModifier(string tag, int mesifState)
 {
 	for (int i = 0; i < numLines; ++i)
 	{
@@ -215,100 +215,100 @@ void L3Set::changeLRUBits(int numLine)
 	switch (numLine)
 	{
 	case 0: 
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "1";
-		lruBits.at(3) = "1";
-		lruBits.at(7) = "1";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '1';
+		lruBits.at(3) = '1';
+		lruBits.at(7) = '1';
 		break;
 	case 1: 
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "1";
-		lruBits.at(3) = "1";
-		lruBits.at(7) = "0";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '1';
+		lruBits.at(3) = '1';
+		lruBits.at(7) = '0';
 		break;
 	case 2: 
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "1";
-		lruBits.at(3) = "0";
-		lruBits.at(8) = "1";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '1';
+		lruBits.at(3) = '0';
+		lruBits.at(8) = '1';
 		break;
 	case 3:
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "1";
-		lruBits.at(3) = "0";
-		lruBits.at(8) = "0";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '1';
+		lruBits.at(3) = '0';
+		lruBits.at(8) = '0';
 		break;
 	case 4:
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "0";
-		lruBits.at(4) = "1";
-		lruBits.at(9) = "1";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '0';
+		lruBits.at(4) = '1';
+		lruBits.at(9) = '1';
 		break;
 	case 5:
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "0";
-		lruBits.at(4) = "1";
-		lruBits.at(9) = "0";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '0';
+		lruBits.at(4) = '1';
+		lruBits.at(9) = '0';
 		break;
 	case 6:
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "0";
-		lruBits.at(4) = "0";
-		lruBits.at(10) = "1";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '0';
+		lruBits.at(4) = '0';
+		lruBits.at(10) = '1';
 		break;
 	case 7:
-		lruBits.at(0) = "1";
-		lruBits.at(1) = "0";
-		lruBits.at(4) = "0";
-		lruBits.at(10) = "0";
+		lruBits.at(0) = '1';
+		lruBits.at(1) = '0';
+		lruBits.at(4) = '0';
+		lruBits.at(10) = '0';
 		break;
 	case 8:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "1";
-		lruBits.at(5) = "1";
-		lruBits.at(11) = "1";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '1';
+		lruBits.at(5) = '1';
+		lruBits.at(11) = '1';
 		break;
 	case 9:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "1";
-		lruBits.at(5) = "1";
-		lruBits.at(11) = "0";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '1';
+		lruBits.at(5) = '1';
+		lruBits.at(11) = '0';
 		break;
 	case 10:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "1";
-		lruBits.at(5) = "0";
-		lruBits.at(12) = "1";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '1';
+		lruBits.at(5) = '0';
+		lruBits.at(12) = '1';
 		break;
 	case 11:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "1";
-		lruBits.at(5) = "0";
-		lruBits.at(12) = "0";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '1';
+		lruBits.at(5) = '0';
+		lruBits.at(12) = '0';
 		break;
 	case 12:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "0";
-		lruBits.at(6) = "1";
-		lruBits.at(13) = "1";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '0';
+		lruBits.at(6) = '1';
+		lruBits.at(13) = '1';
 		break;
 	case 13:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "0";
-		lruBits.at(6) = "1";
-		lruBits.at(13) = "0";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '0';
+		lruBits.at(6) = '1';
+		lruBits.at(13) = '0';
 		break;
 	case 14:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "0";
-		lruBits.at(6) = "0";
-		lruBits.at(14) = "1";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '0';
+		lruBits.at(6) = '0';
+		lruBits.at(14) = '1';
 		break;
 	case 15:
-		lruBits.at(0) = "0";
-		lruBits.at(2) = "0";
-		lruBits.at(6) = "0";
-		lruBits.at(14) = "0";
+		lruBits.at(0) = '0';
+		lruBits.at(2) = '0';
+		lruBits.at(6) = '0';
+		lruBits.at(14) = '0';
 		break;
 	default: 
 		break;

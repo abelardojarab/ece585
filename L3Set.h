@@ -27,7 +27,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/	
-	string readData(unsigned int tag);
+	string readData(string tag);
 	
 	/**
 	* DESC:
@@ -36,7 +36,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	string writeData(unsigned int tag, int mesifState);
+	string writeData(string tag, int mesifState);
 
 	/**
 	* DESC:
@@ -45,7 +45,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	string checkHit(unsigned int tag);
+	string checkHit(string tag);
 
 	/**
 	* DESC:
@@ -54,7 +54,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	string mesifStateModifier(unsigned int tag, int mesifState);
+	string mesifStateModifier(string tag, int mesifState);
 
   private:
 
