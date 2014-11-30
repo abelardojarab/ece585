@@ -74,7 +74,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/	
-	unsigned int evict(int evictedLineNum);
+	string evict(int evictedLineNum);
 	
 	/**
 	* DESC:

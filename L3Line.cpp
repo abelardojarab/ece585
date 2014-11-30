@@ -23,7 +23,7 @@ using namespace std;
 L3Line::L3Line()
 {
 	tagBits = 0;
-	mesifState = 5;
+	mesifState = 3;
 	dirtyBit = 0;
 }
 
@@ -47,7 +47,7 @@ L3Line::L3Line(unsigned int tag, int mesifState)
 L3Line::~L3Line()
 {
 	tagBits = 0;
-	mesifState = 5;
+	mesifState = 3;
 	dirtyBit = 0;
 }
 
@@ -106,16 +106,9 @@ unsigned int L3Line::getTag()
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-void L3Line::setDirtyBit()
+void L3Line::setDirtyBit(int x)
 {
-	if (dirtyBit == 0)
-	{
-		dirtyBit = 1;
-	}
-	else
-	{
-		dirtyBit = 0;
-	}
+	dirtyBit = x;
 }
 
 /**

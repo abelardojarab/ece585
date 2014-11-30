@@ -77,7 +77,7 @@ class L3Line
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	void setDirtyBit();
+	void setDirtyBit(int x);
 
 	/**
 	* DESC: Used to return the dirty bit

@@ -36,7 +36,7 @@ string L3Set::readData(unsigned int tag)
 {
 	for(int i = 0; i < numLines; ++i)
 	{
-		if (l3Line[i].getTag == tag)
+		if (l3Line[i].getTag() == tag)
 		{
 			return "hit\n";
 			changeLRUBits(i);
@@ -60,11 +60,11 @@ string L3Set::writeData(unsigned int tag, int mesifState)
 {
 	for (int i = 0; i < numLines; ++i)
 	{
-		if (l3Line[i].getTag == 0)
+		if (l3Line[i].getTag() == 0)
 		{
-			l3Line[i].setTag = tag;
-			l3Line[i].setMESIF = mesifState;
-			if (mesifState == 0) l3Line[i].setDirtyBit;
+			l3Line[i].setTag(tag);
+			l3Line[i].setMESIF(mesifState);
+			if (mesifState == 0) l3Line[i].setDirtyBit(1);
 			changeLRUBits(i);
 			return "done\n";
 		}
@@ -73,14 +73,15 @@ string L3Set::writeData(unsigned int tag, int mesifState)
 			return "No Space\n";
 			int evictedLineNum = getLRU();
 			evict(evictedLineNum);
-			l3Line[evictedLineNum].setTag = tag;
-			l3Line[evictedLineNum].setMESIF = mesifState;
-			if (mesifState == 0) l3Line[evictedLineNum].setDirtyBit;
+			l3Line[evictedLineNum].setTag(tag);
+			l3Line[evictedLineNum].setMESIF(mesifState);
+			if (mesifState == 0) l3Line[evictedLineNum].setDirtyBit(1);
 			changeLRUBits(evictedLineNum);
-			return "done\n";
+			return "done\n";// return the address to write back it to Memo.
 		}
 	}
 }
+
 
 /**
 * DESC:
@@ -93,7 +94,7 @@ string L3Set::checkHit(unsigned int tag)
 {
 	for (int i = 0; i < numLines; ++i)
 	{
-		if (l3Line[i].getTag == tag)
+		if (l3Line[i].getTag() == tag)
 		{
 			return "hit\n";
 		}
@@ -115,11 +116,12 @@ string L3Set::mesifStateModifier(unsigned int tag, int mesifState)
 {
 	for (int i = 0; i < numLines; ++i)
 	{
-		if (l3Line[i].getTag == tag)
+		if (l3Line[i].getTag() == tag)
 		{
-			l3Line[i].setMESIF = mesifState;
-			return "done\n";
-			break;
+			if ( mesifState == 3 ){ // 3 is invalidate state.
+				evict(i);
+			}else{ l3Line[i].setMESIF(mesifState); }
+			return "done\n";// return the address to write back it to Memo.
 		}
 		else if (i == (numLines - 1)) // if miss, then it is error.
 		{
@@ -321,9 +323,11 @@ void L3Set::changeLRUBits(int numLine)
 * PRE-CONDITION:
 * POST-CONDITION:
 */
-unsigned int L3Set::evict(int evictedLineNum)
+string L3Set::evict(int evictedLineNum)
 {
+	string s = l3Line[evictedLineNum].getTag();
 	l3Line[evictedLineNum].setTag(0);
-	l3Line[evictedLineNum].setMESIF(5);
-	l3Line[evictedLineNum].setDirtyBit();
+	l3Line[evictedLineNum].setMESIF(3);
+	l3Line[evictedLineNum].setDirtyBit(0);
+	return s;
 }
