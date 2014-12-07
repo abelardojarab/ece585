@@ -7,8 +7,11 @@
  *****************************************************************************/
  
 #pragma once
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
+#include <cstring>
+#include "L3Line.h"
+
 using namespace std;
 
 class L3Set

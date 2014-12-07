@@ -10,12 +10,13 @@
 #include "L3Set.h"
 #include "L3Line.h"
 #include <iostream>
+
 using namespace std;
 
 int main()
 {
-	cout << "Press ENTER to end the program...";
-	cin.get();
-	cout << endl;
-	return 0;
+    cout << "Press ENTER to end the program...";
+    cin.get();
+    cout << endl;
+    return 0;
 }
