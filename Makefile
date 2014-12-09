@@ -20,3 +20,6 @@ L3Set.o: L3Set.h L3Set.cpp
 
 L3Line.o: L3Line.h L3Line.cpp
 	$(CXX) $(CXXFLAGS) -c -o L3Line.o L3Line.cpp
+
+clean:
+	rm *.o
