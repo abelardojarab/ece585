@@ -1,5 +1,6 @@
 *.o
 main
 flycheck*
+*.exe
 main.exe
 wget-*

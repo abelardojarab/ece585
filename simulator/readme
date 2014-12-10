@@ -1,0 +1,31 @@
+
+The trace files are ASCII data files consisting of lines where each one has two numbers, separated by only one white space:
+Label Value
+where:
+* Label is a decimal number that identifies the memory access operation type demanded by the processor in a given time:
+
+0 read  request from    L1  data    cache
+1 write request from    L1  data    cache
+2 read  request from    L1  instruction cache
+3 snooped   invalidate  command
+4 snooped   read    request
+5 snooped   write   request
+6 snooped   read    with    intent  to modify
+8 clear the cache   and reset   all state
+9 print contents    and state   of  each    valid   cache   line    (allow  subsequent  trace   activity)
+
+* Value is a 32-bit hexadecimal number that indicates the effective address of the memory word to be accessed by the processor
+
+Format of the executable:
+
+MESI input_file no_processors cache_size block_size
+where MESI is the executable file name and input parameters are
+
+input_file is the input benchmark name
+no processors: number of processors
+cache_size: cache size in bytes
+block_size: block size in bytes
+
+For example, to read MYTEST*.prg trace files for 4 processors and execute MESI cache coherence protocol with each processor containing 1K direct-mapped cache and 16 byte block size, the command will be
+
+MESI TEST 4 1024 16
