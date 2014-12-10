@@ -12,7 +12,7 @@ namespace MESI
 
        public enum Label   //The label from the PRG File
     {
-            Fetch, Read, Write
+            Fetch, Read, Write, SnoopInvalidate, SnoopedRead, SnoopedWrite, SnoopedReadToModify, ClearResetCache, TraceCache
     }
 
        public enum MESI_States
