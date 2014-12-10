@@ -72,6 +72,7 @@ namespace MESI
 
                     try //in try catch block coz one trace might get empty before some other processors trace.
                     {
+                    //remove the block
                         //Check if the current processor is blocked or not.
                         if (!processor.isBlocked)
                         {
@@ -101,7 +102,7 @@ namespace MESI
             foreach (var processor in processors)
             {
                 int cacheMiss = processor.memoryAccess - processor.cacheHit;
-                Console.WriteLine("Cache Miss ratio for processor{1} is: {0}", (double)cacheMiss / processor.memoryAccess, processor.processorId + 1);
+                Console.WriteLine("Cache miss ratio for processor{1} is: {0}", (double)cacheMiss / processor.memoryAccess, processor.processorId + 1);
                 Console.WriteLine();
             }
 
@@ -125,7 +126,8 @@ namespace MESI
                 processors[processorId].incrementMemoryAccess();
 
                 //Split the address to get the tag and slot
-                splitAddress(line.Substring(2));
+                Console.WriteLine("Reading = {0}\n", string.Format("{0:x8}",line.Substring(2)));
+                splitAddress(string.Format("{0:x8}",line.Substring(2)));
 
                 if (existsInCache(processorId) == true) // Cache Hit
                 {
@@ -146,12 +148,6 @@ namespace MESI
 
                 runCacheProtocol(result, processorId);
             }
-
-            /*
-                case '9':
-                    return Label.TraceCache;
-                default:
-                    return Label.Fetch; */
 
 
             // In case we have a direct cache command (coming from a bus for example)
@@ -434,7 +430,7 @@ namespace MESI
             offsetAddress = binaryAddress.Substring(tagBits + slotBits);
 
             //Console.WriteLine("Offset : {0}", offset);
-            //Console.WriteLine("Slot : {0}", slot);
+            Console.WriteLine("Slot : {0}", slotAddress);
             //Console.WriteLine("Slot in Decimal : {0}", convertBinarytoDecimal(slot));
             //Console.WriteLine("Tag : {0}", tag);
         }

@@ -17,7 +17,7 @@ namespace MESI
 
        public enum MESI_States
        {
-           Modified, Exclusive, Shared, Invalid
+           Modified, Exclusive, Shared, Invalid, Forward
        }
 
        public enum BusSignals
@@ -32,7 +32,7 @@ namespace MESI
 
     static class Constants
     {
-        public const int PARAMS = 4;
+        public const int PARAMS = 5;
         public const int addressLenght = 32;  //32 bit memory address
         public const int memoryToCache_cycles = 10;
         public const string filePath = @"./benchmarks/";
