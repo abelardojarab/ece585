@@ -58,7 +58,7 @@ string L3Set::readData(string tag)
 */
 string L3Set::writeData(string tag, int mesifState)
 {
-	for (int i = 0; i < numLines; ++i)
+	for (int i = 0; i <= numLines - 1; ++i)
 	{
 		if (l3Line[i].getTag() == "0")
 		{
