@@ -1,0 +1,5 @@
+/Users/abelardojara/workspace/caches/MESI-Cache-Simulator/obj/x86/Release/.NETFramework,Version=v4.0,Profile=Client.AssemblyAttribute.cs
+/Users/abelardojara/workspace/caches/MESI-Cache-Simulator/bin/Release/MESI.exe.mdb
+/Users/abelardojara/workspace/caches/MESI-Cache-Simulator/bin/Release/MESI.exe
+/Users/abelardojara/workspace/caches/MESI-Cache-Simulator/obj/x86/Release/MESI.exe
+/Users/abelardojara/workspace/caches/MESI-Cache-Simulator/obj/x86/Release/MESI.exe.mdb
