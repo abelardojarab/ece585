@@ -28,4 +28,4 @@ block_size: block size in bytes
 
 For example, to read MYTEST*.prg trace files for 4 processors and execute MESI cache coherence protocol with each processor containing 1K direct-mapped cache and 16 byte block size, the command will be
 
-MESI WEATHER 4 1024 16
+MESI TEST 4 1024 16
