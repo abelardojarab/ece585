@@ -34,7 +34,7 @@ L3Set::~L3Set()
 */
 string L3Set::readData(string tag)
 {
-	for(int i = 0; i < numLines; ++i)
+	for(int i = 0; i <= numLines - 1; ++i)
 	{
 		if (l3Line[i].getTag() == tag)
 		{
