@@ -45,6 +45,7 @@ string L3Set::readData(string tag)
 			return "miss\n";
 		}
 	}
+	return "miss\n";  // function should not get to this point
 }
 
 /**
@@ -76,6 +77,7 @@ string L3Set::writeData(string tag, int mesifState)
 			return "done\n";// return the address to write back it to Memo.
 		}
 	}
+	return "done\n";  // function should not get to this point
 }
 
 
@@ -98,6 +100,7 @@ string L3Set::checkHit(string tag)
 			return "miss\n";
 		}
 	}
+	return "miss\n";  // function should not get to this point
 }
 
 /**
@@ -124,6 +127,7 @@ string L3Set::mesifStateModifier(string tag, int mesifState)
 			return "miss\n";
 		}
 	}
+	return "miss\n";  // function should not get to this point
 }
 
 
@@ -197,6 +201,7 @@ int L3Set::getLRU()
 			}
 		}
 	}
+	return 15;  // function should not get to this point
 }
 
 /**
