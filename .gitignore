@@ -1,4 +1,6 @@
 *.o
+*.mdb
+.DS_*
 main
 flycheck*
 *.exe
