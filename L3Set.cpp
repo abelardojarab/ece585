@@ -70,7 +70,6 @@ string L3Set::writeData(string tag, int mesifState)
 		}
 		else if (i == (numLines - 1))
 		{
-			return "No Space\n";
 			int evictedLineNum = getLRU();
 			evict(evictedLineNum);
 			l3Line[evictedLineNum].setTag(tag);
