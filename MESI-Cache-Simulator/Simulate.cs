@@ -44,7 +44,6 @@ namespace MESI
             for (int i = 0; i < numOfProcessor; i++)
             {
                 string tempfileName = Constants.filePath + BenchMarkFile + ProcessorFile[i];
-                //string tempfileName = @"C:\Users\Saurabh\Documents\Lab\Yr4 Sem1\CS4223\Assignment 3\Sample.txt";
                 Processor p = new Processor(cacheSize, blockSize, tempfileName, i);
                 processors.Add(p);
                 trace.Add(new StreamReader(processors[i].fileName));
@@ -233,7 +232,7 @@ namespace MESI
                     {
                         case BusSignals.BusRd:
                             switch (ownState)
-	                            {
+                                {
                                     case MESI_States.Modified:
                                     //flush data to memory
                                         flushData();
@@ -256,7 +255,7 @@ namespace MESI
                                         break;
                                     default:
                                         break;
-	                            }
+                                }
                             break;
 
                         case BusSignals.BusRdX:
@@ -380,7 +379,7 @@ namespace MESI
         }
 
         //This function will be used to convert the binary form of the Slot number obatined from the memory address
-        //into an integer to locate the slot number in the cache block. A cache is an array of cacheBlock and the index of the 
+        //into an integer to locate the slot number in the cache block. A cache is an array of cacheBlock and the index of the
         //cache block (index is the slot number) will take us to that slot.
         //e.g. cacheBlock[slot number in integer] = the slot where this memory address will map to in the cache.
         private int convertBinarytoDecimal(string binaryAddress)
@@ -418,11 +417,23 @@ namespace MESI
             switch (labelNumber)
             {
                 case '0':
-                    return Label.Fetch;
+                     return Label.Read;
+                case '1':
+                     return Label.Write;
                 case '2':
-                    return Label.Read;
+                     return Label.Fetch;
                 case '3':
-                    return Label.Write;
+                    return Label.SnoopInvalidate;
+                case '4':
+                    return Label.SnoopedRead;
+                case '5':
+                    return Label.SnoopedWrite;
+                case '6':
+                    return Label.SnoopedReadToModify;
+                case '8':
+                    return Label.ClearResetCache;
+                case '9':
+                    return Label.TraceCache;
                 default:
                     return Label.Fetch;
             }
@@ -443,7 +454,7 @@ namespace MESI
 
         private void flushData()
         {
-            //Function which would write back 
+            //Function which would write back
         }
 
         #endregion

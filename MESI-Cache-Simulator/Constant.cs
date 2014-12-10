@@ -11,9 +11,9 @@ namespace MESI
     }
 
        public enum Label   //The label from the PRG File
-	{
+    {
             Fetch, Read, Write
-	}
+    }
 
        public enum MESI_States
        {
@@ -35,6 +35,6 @@ namespace MESI
         public const int PARAMS = 4;
         public const int addressLenght = 32;  //32 bit memory address
         public const int memoryToCache_cycles = 10;
-        public const string filePath = @"C:\Users\Saurabh\Documents\Lab\Yr4 Sem1\CS4223\Assignment 3\Weather8\";
+        public const string filePath = @"./benchmarks/";
     }
 }
