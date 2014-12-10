@@ -14,6 +14,7 @@ namespace MESI
         int numOfProcessor;
         int cacheSize;
         int blockSize;
+        int associativity;
         string BenchMarkFile;
 
         List<Processor> processors;
@@ -31,6 +32,7 @@ namespace MESI
             numOfProcessor = Convert.ToInt32(args[1]);
             cacheSize = Convert.ToInt32(args[2]);
             blockSize = Convert.ToInt32(args[3]);
+            associativity = Convert.ToInt32(args[4]);
 
             processors = new List<Processor>(numOfProcessor);
             bus = new Bus();

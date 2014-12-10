@@ -9,7 +9,7 @@ namespace MESI
     {
         public string tag { get; set; }
         public MESI_States currentState { get; set; }
-        public int slot { get; set; } //Block number
+        public int slot { get; set; } // number of empty lines
 
         public CacheBlock(int blockNumber)
         {
