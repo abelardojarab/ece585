@@ -9,7 +9,7 @@ namespace MESI
     class Simulate
     {
         #region Global Variables
-        public string[] ProcessorFile = { "1.PRG", "2.PRG", "3.PRG", "4.PRG", "5.PRG", "6.PRG", "7.PRG", "8.PRG" };
+        public string[] ProcessorFile = { "1.trace", "2.trace", "3.trace", "4.trace", "5.trace", "6.trace", "7.trace", "8.trace" };
 
         int numOfProcessor;
         int cacheSize;
@@ -101,10 +101,8 @@ namespace MESI
                 int cacheMiss = processor.memoryAccess - processor.cacheHit;
                 Console.WriteLine("Cache Miss ratio for processor{1} is: {0}", (double)cacheMiss / processor.memoryAccess, processor.processorId + 1);
                 Console.WriteLine();
-                //totalCachemiss += cacheMiss;
-                //totalMem += processor.memoryAccess;
             }
-            //Console.WriteLine("Average Cache Miss Ratio is: {0}", (double)totalCachemiss / totalMem);
+
             #endregion
         }
 
@@ -114,9 +112,12 @@ namespace MESI
             CacheAccessResult result = CacheAccessResult.ReadHit; //This will change later. Simply assigned to avoid compilation error.
 
             label = corresondingLabel(line[0]);
+            if ( label == Label.SnoopedRead ) label = Label.Read;
+            if ( label == Label.SnoopedWrite ) label = Label.Write;
+            if ( label == Label.SnoopedReadToModify ) label = Label.Write;
 
-            //Only need to simulate Data Cache
-            if (label != Label.Fetch)
+            // In case read or write operation
+            if ((label == Label.Read) || (label == Label.Write))
             {
                 //This means it is a memory access
                 processors[processorId].incrementMemoryAccess();
@@ -142,6 +143,30 @@ namespace MESI
                 }
 
                 runCacheProtocol(result, processorId);
+            }
+
+            /*
+                case '9':
+                    return Label.TraceCache;
+                default:
+                    return Label.Fetch; */
+
+
+            // In case we have a direct cache command (coming from a bus for example)
+            if (label == Label.SnoopInvalidate)
+            {
+               int slot = convertBinarytoDecimal(slotAddress);
+               bus.pendingSignal.Enqueue(BusSignals.BusInvalidate);
+               snoopBus(processorId);
+            }
+
+            if (label == Label.TraceCache) {
+            foreach (var processor in processors)
+            {
+                int cacheMiss = processor.memoryAccess - processor.cacheHit;
+                Console.WriteLine("Cache Miss ratio for processor{1} is: {0}", (double)cacheMiss / processor.memoryAccess, processor.processorId + 1);
+                Console.WriteLine();
+            }
             }
         }
 
