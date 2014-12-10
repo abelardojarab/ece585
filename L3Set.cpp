@@ -12,7 +12,7 @@
 L3Set::L3Set(const int numLines)
 {
 	this->numLines = numLines;
-	l3Line = new L3Line[numLines - 1];
+	l3Line = new L3Line[numLines];  //
 	lruBits = "000000000000000";
 	
 }
