@@ -17,20 +17,15 @@ class L3Line
     /**
     * DESC: constructor to set a lines TAG bits and its current
     *       state using MESIF.
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
     */
     L3Line();
 
     /**
     * DESC: constructor to set a lines TAG bits and its current
     *       state using MESIF.
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * PARAM: tag - the cache lines tag bits
+	*        mesifState - the state bits for a line
+    * POST-CONDITION: sets the number of state bits
     */
     L3Line(unsigned int tag, int mesifState);
 
@@ -39,65 +34,43 @@ class L3Line
 
     /**
     * DESC:  Used to change the MESIF state of the line
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * PARAM: state - changes the mesifState of the line
     */
     void setMESIF(int state);
 
     /**
-    * DESC: Used to return the MESIF state of the line
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * DESC: Used to return the MESIF state of a line
+    * RETURN: mesif state of line 
     */
     int getMESIF();
 
     /**
-    * DESC:
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * DESC: set tag bits of line
+    * PARAM: tag - binary string of tag bits
     */
     void setTag(string tag);
 
 
     /**
-    * DESC: Returns the line's TAG bit
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * DESC: Returns the line's TAG bits
+    * RETURN: binary string of tag bits
     */
     string getTag();
 
     /**
-    * DESC: Used to toggle the dirty bit
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * DESC: Used to alter the dirty bit
+    * PARAM: x - changes value of dirty bit
     */
     void setDirtyBit(int x);
 
     /**
     * DESC: Used to return the dirty bit
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
+    * RETURN: returns value of dirty bit
     */
     int getDirtyBit();
 
     /**
     * DESC: prints changes to the line
-    * PARAM:
-    * RETURN:
-    * PRE-CONDITION:
-    * POST-CONDITION:
     */
     void print();
 

@@ -24,38 +24,35 @@ class L3Set
 	~L3Set();
 	
     /**
-	* DESC:
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION:
-	* POST-CONDITION:
+	* DESC: search lines for a matching tag
+	* PARAM: tag - binary string of tag bits
+	* RETURN: return "hit" or "miss"
 	*/	
 	string readData(string tag);
 	
 	/**
-	* DESC:
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION:
-	* POST-CONDITION:
+	* DESC: writes to a line
+	* PARAM: tag - write to tag bits in line
+	*        mesifState - the current state of the line
+	* RETURN: "done" when operation completed
 	*/
 	string writeData(string tag, int mesifState);
 
 	/**
-	* DESC:
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION:
-	* POST-CONDITION:
+	* DESC: check if a line is in the set
+	* PARAM: tag - used to compare lines in set
+	* RETURN: "hit" if match found
+	*         "miss" if match not found
 	*/
 	string checkHit(string tag);
 
 	/**
-	* DESC:
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION:
-	* POST-CONDITION:
+	* DESC: change mesif state of a line based on the lines
+	*       current state.  First the line must be found
+	* PARAM: tag - tag bits used to find matching line
+	*        mesifState - state bits
+	* RETURN: "done\n" when operation finished
+	*         "miss\n" if matching tag not found 
 	*/
 	string mesifStateModifier(string tag, int mesifState);
 
@@ -71,11 +68,9 @@ class L3Set
 	int getLRU();
 	
     /**
-	* DESC:
-	* PARAM:
-	* RETURN:
-	* PRE-CONDITION:
-	* POST-CONDITION:
+	* DESC: evict a line from the set
+	* PARAM: evictedLineNum - location of line in set
+	* RETURN: return tag of evicted line
 	*/	
 	string evict(int evictedLineNum);
 	

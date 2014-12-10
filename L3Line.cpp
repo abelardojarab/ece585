@@ -15,10 +15,6 @@ using namespace std;
 * DESC: constructor to set a lines TAG bits and its current
 *       state using MESIF.  The MESIF is 6 bits due to 64 Byte
 *       data. The TAG is 58 bits since 64 byte address.
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
 */
 L3Line::L3Line()
 {
@@ -31,10 +27,9 @@ L3Line::L3Line()
 * DESC: constructor to set a lines TAG bits and its current
 *       state using MESIF.  The MESIF is 6 bits due to 64 Byte
 *       data. The TAG is 58 bits since 64 byte address.
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* PARAM: tag - the cache lines tag bits
+*        mesifState - the state bits for a line
+* POST-CONDITION: sets the number of state bits
 */
 L3Line::L3Line(unsigned int tag, int mesifState)
 {
@@ -53,10 +48,7 @@ L3Line::~L3Line()
 
 /**
 * DESC:  Used to change the MESIF state of the line
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* PARAM: state - changes the mesifState of the line
 */
 void L3Line::setMESIF(int state)
 {
@@ -64,11 +56,8 @@ void L3Line::setMESIF(int state)
 }
 
 /**
-* DESC: Used to return the MESIF state of the line
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* DESC: Used to return the MESIF state of a line
+* RETURN: mesif state of line 
 */
 int L3Line::getMESIF()
 {
@@ -76,11 +65,8 @@ int L3Line::getMESIF()
 }
 
 /**
-* DESC: 
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* DESC: set tag bits of line
+* PARAM: tag - binary string of tag bits
 */
 void L3Line::setTag(string tag)
 {
@@ -88,11 +74,8 @@ void L3Line::setTag(string tag)
 }
 
 /**
-* DESC: Returns the line's TAG bit
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* DESC: Returns the line's TAG bits
+* RETURN: binary string of tag bits
 */
 string L3Line::getTag()
 {
@@ -100,11 +83,8 @@ string L3Line::getTag()
 }
 
 /**
-* DESC: Used to toggle the dirty bit
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* DESC: Used to alter the dirty bit
+* PARAM: x - changes value of dirty bit
 */
 void L3Line::setDirtyBit(int x)
 {
@@ -113,10 +93,7 @@ void L3Line::setDirtyBit(int x)
 
 /**
 * DESC: Used to return the dirty bit
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
+* RETURN: returns value of dirty bit
 */
 int L3Line::getDirtyBit()
 {
@@ -125,10 +102,6 @@ int L3Line::getDirtyBit()
 
 /**
 * DESC: prints changes to the line
-* PARAM:
-* RETURN:
-* PRE-CONDITION:
-* POST-CONDITION:
 */
 void L3Line::print()
 {
