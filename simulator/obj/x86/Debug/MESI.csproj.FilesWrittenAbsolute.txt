@@ -4,3 +4,7 @@
 /Users/abelardojara/workspace/ece585/simulator/bin/Debug/MESI.exe
 /Users/abelardojara/workspace/ece585/simulator/obj/x86/Debug/MESI.exe
 /Users/abelardojara/workspace/ece585/simulator/obj/x86/Debug/MESI.exe.mdb
+C:\Users\ajaraber\workspace\ece585\simulator\bin\Debug\MESI.exe.mdb
+C:\Users\ajaraber\workspace\ece585\simulator\bin\Debug\MESI.exe
+C:\Users\ajaraber\workspace\ece585\simulator\obj\x86\Debug\MESI.exe
+C:\Users\ajaraber\workspace\ece585\simulator\obj\x86\Debug\MESI.exe.mdb
