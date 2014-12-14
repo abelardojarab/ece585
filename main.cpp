@@ -11,6 +11,8 @@
 #include "L3Line.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <bitset>
 
 using namespace std;
 
@@ -25,25 +27,37 @@ int main(int argc, char* argv[])
   }
 
   if (argc == 4)
-  {
-    numLines = atoi(argv[2]);
-    numSets = atoi(argv[3]);
-  }
+    {
+      numLines = atoi(argv[2]);
+      numSets = atoi(argv[3]);
+    }
 
   L3Cache* mycache;
   mycache = new L3Cache(numLines, numSets);
 
-
   string line;
   ifstream myfile (argv[1]);
+  int opcode;
+  unsigned int address;
+  std::stringstream ss;
+  string hexaddress;
+
   if (myfile.is_open())
     {
       while ( getline (myfile,line) )
         {
-          cout << "Reading line: " << line << '\n';
+          if (line.compare(0,1,"") != 0) {
 
-          // cache implementation
+            istringstream(line) >> opcode >> hexaddress;
+            ss.clear(); // reset stream state
+            ss.str("");
+            ss << std::hex << hexaddress;
+            ss >> address;
+            bitset<32> b(static_cast<int>(address));
+            cout<< "Read: opcode = "<<opcode<<", hexaddress = "<< hexaddress << ", address = "<<b.to_string()<<endl;
 
+            // cache command
+          }
         }
       myfile.close();
     }

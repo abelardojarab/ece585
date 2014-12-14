@@ -5,4 +5,5 @@ main
 flycheck*
 *.exe
 main.exe
+*.stackdump
 wget-*
