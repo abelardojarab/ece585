@@ -64,6 +64,7 @@ int getSnoopResult(string tag)
 		return 2; // Return HITM
 	else
 		return 3; // Not implemented
+}
  
 int putSnoopResult(int address, int snoopResult)
 {
