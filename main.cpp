@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 
   if (argc == 4)
   {
-    numLines = atoi(argv[2]);  
+    numLines = atoi(argv[2]);
     numSets = atoi(argv[3]);
   }
 
@@ -41,9 +41,9 @@ int main(int argc, char* argv[])
       while ( getline (myfile,line) )
         {
           cout << "Reading line: " << line << '\n';
-	  
-	  // cache implementation
-	  
+
+          // cache implementation
+
         }
       myfile.close();
     }
