@@ -34,6 +34,8 @@ public:
    * PRE-CONDITION:
    * POST-CONDITION:
    */
+  int getSnoopResult(string tag);
+   
   int putSnoopResult(int address, int snoopResult);
 
   /**
