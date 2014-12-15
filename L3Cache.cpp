@@ -60,7 +60,7 @@ int L3Cache::L3CacheInit() {
 int L3Cache::processOpcode (int opcode, string address) {
 
   string indexstr;
-  indexstr = address.substr(indexMSBitIndex,indexLSBitIndex);
+  indexstr = address.substr(indexMSBitIndex,log2(numSets));
 
   std::bitset<32> bits(indexstr);
   unsigned int index=bits.to_ulong();
@@ -70,7 +70,7 @@ int L3Cache::processOpcode (int opcode, string address) {
   convert << index;      // insert the textual representation of 'Number' in the characters in the stream
   Result = convert.str(); // set 'Result' to the contents of the stream
 
-  cout<<"Received opcode = "<<opcode<<", index = "<<Result<<endl;
+  cout<<"Received opcode = "<<opcode<<", full address = "<<address<<", index = "<<Result<<endl;
 
   switch (opcode) {
 
