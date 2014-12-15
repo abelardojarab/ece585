@@ -57,11 +57,11 @@ L3Line* CLruTree::evictSpecificLine(std::string tag)
     return evict_noReplacement(root, tag, holdVictim);
 }
 
-L3Line* CLruTree::evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
+/*L3Line* CLruTree::evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
 {
 
   return holdVictim;
-}
+}*/
 
 // Print entire tree
 void CLruTree::printTree()
@@ -520,9 +520,10 @@ void CLruTree::printSet(BTreeNode* current)
         // check if node is a leaf
         else if (current->leaf == true)
         {   // display current node information
-            std::cout << "leaf = true , ";
-            std::cout << "bit = " << current->bit << ", "
-                << "level = " << current->level << ", ";
+            std::cout << "leaf = true , "
+			    << "bit = " << current->bit << ", "
+				<< "level = " << current->level << ", "
+			    << "mesif = " << current->line->getMESIF() << ", ";
             if (current->line == NULL)
             {
                 std::cout << "EMPTY" << std::endl;
@@ -544,4 +545,39 @@ void CLruTree::printSet(BTreeNode* current)
 
 }
 
-/* PUBLIC RAPPER FUNCTIONS */
+// invalidates all lines that are leafs
+void CLruTree::invalidateLeafs(BTreeNode* current)
+{
+	// display node if current is not null
+	if (current != NULL)
+	{
+		if (current->leaf != true)
+		{   // not a leaf so move to next nodes
+			// navigate right then left
+			printSet(current->right);
+			printSet(current->left);
+		}
+
+		// check if node is a leaf
+		else if (current->leaf == true)
+		{   // invalidate node
+			delete current->line;
+			current->line = NULL;
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}
+	else
+	{
+		return;
+	}
+}
+
+// wrapper for invalidate leafs
+void CLruTree::invalidateAll(void)
+{
+	invalidateLeafs(root);
+}
