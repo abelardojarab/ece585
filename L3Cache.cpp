@@ -230,7 +230,7 @@ int setEvent(int opcode, int address)
  */
 int getAddr(int address)
 {
-
+	return 0;
 }
 
 /**
@@ -255,5 +255,5 @@ int setAddr(int address)
  */
 int mappingIndex()
 {
-
+	return 0;
 }

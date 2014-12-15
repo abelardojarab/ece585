@@ -355,7 +355,7 @@ L3Line* CLruTree::evict(BTreeNode* current, L3Line* newLine, L3Line* holdVictim)
 // line is the one with the matching tag
 // RET: pointer to evicted line on success
 //      NULL if failed
-L3Line* evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
+L3Line* CLruTree::evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
 {
 	// make sure current not null
 	if (current == NULL)
@@ -399,6 +399,7 @@ L3Line* evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVic
 			return NULL;
 		}
 	}
+	return NULL;  // error if get to this point
 }
 
 
