@@ -16,6 +16,7 @@
 L3Cache::L3Cache()
 {
 
+  lineSize = 64;
   numLines = 256;
   numSets = 16;
 
@@ -23,9 +24,10 @@ L3Cache::L3Cache()
 
 }
 
-L3Cache::L3Cache(int numLines, int numSets)
+L3Cache::L3Cache(int lineSize, int numLines, int numSets)
 {
 
+  this->lineSize = lineSize;
   this->numLines = numLines;
   this->numSets = numSets;
 
@@ -49,6 +51,9 @@ int L3Cache::L3CacheInit() {
 int L3Cache::processOpcode (int opcode, string address) {
 
   cout<<"Received opcode = "<<opcode<<", address = "<<address<<endl;
+  unsigned int index;
+
+
   switch (opcode) {
 
   case 0:

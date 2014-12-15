@@ -14,7 +14,7 @@ class L3Cache
 public:
   // constructors
   L3Cache();
-  L3Cache(int numLines, int numSets);
+  L3Cache(int lineSize, int numLines, int numSets);
 
   // destructor
   ~L3Cache();
@@ -94,6 +94,7 @@ private:
   int MESI_bits;
   int hit;
   int noHit;
+  int lineSize;
   int numLines;
   int numSets;
   L3Set* l3Sets;

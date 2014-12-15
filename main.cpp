@@ -20,20 +20,22 @@ int main(int argc, char* argv[])
 {
   int numLines = 256;
   int numSets = 16;
+  int lineSize = 64;
 
-  if ((argc < 2) || (argc > 4) || (argc == 3)) {
+  if ((argc < 2) || (argc > 5) || (argc == 3)) {
     cerr << "Usage: " << argv[0] << " maininputFile" << endl;
     return -1;
   }
 
-  if (argc == 4)
+  if (argc == 5)
     {
-      numLines = atoi(argv[2]);
-      numSets = atoi(argv[3]);
+      lineSize = atoi(argv[2]);
+      numLines = atoi(argv[3]);
+      numSets = atoi(argv[4]);
     }
 
   L3Cache* mycache;
-  mycache = new L3Cache(numLines, numSets);
+  mycache = new L3Cache(lineSize, numLines, numSets);
 
   string line;
   ifstream myfile (argv[1]);
