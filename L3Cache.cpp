@@ -305,9 +305,12 @@ L3Cache::~L3Cache()
  * PRE-CONDITION:
  * POST-CONDITION:
  */
-int busOperation()
+void busOperation(std::string BusOp, std::string address, std::string snoopResult)
 {
-  
+	*snoopResult = getSnoopResult(address);
+	#ifndef SILENT
+	printf("BusOp: %s, Address: %s, Snoop Result: %s\n", *snoopResult);
+	#endif
   return 0;
 }
 
@@ -331,22 +334,21 @@ int getSnoopResult(string tag)
     return 3; // Not implemented
 }
 
-int putSnoopResult(int address, int snoopResult)
+void putSnoopResult(int address, int snoopResult)
 {
-
-  return 0;
+	#ifndef SILENT
+	printf("SnoopResult: Address %h, SnoopResult: %d\n", address, snoopResult);
+	#endif
 }
 
-/**
- * DESC:
- * PARAM:
- * RETURN:
- * PRE-CONDITION:
- * POST-CONDITION:
- */
+/*
+Used to simulate commin
+*/
 void messageL2Cache(int busOp, int snoopResult)
 {
-
+	#ifndef SILENT
+	printf("L2: %d %h\n", busOperation, address);
+	#endif
 }
 
 /**
