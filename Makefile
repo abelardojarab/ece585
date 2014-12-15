@@ -4,8 +4,8 @@ CXXFLAGS = -Wall -g
 # ****************************************************
 # Targets needed to bring the executable up to date
 
-main: main.o L3Cache.o L3Set.o L3Line.o
-	$(CXX) $(CXXFLAGS) -o main main.o L3Cache.o L3Set.o L3Line.o
+main: main.o L3Cache.o L3Set.o L3Line.o LruTree.o
+	$(CXX) $(CXXFLAGS) -o main main.o L3Cache.o L3Set.o LruTree.o L3Line.o
 
 # The main.o target can be written more simply
 
@@ -17,6 +17,9 @@ L3Cache.o: L3Cache.cpp L3Cache.h
 
 L3Set.o: L3Set.h L3Set.cpp
 	$(CXX) $(CXXFLAGS) -c -o L3Set.o L3Set.cpp
+
+LruTree.o: LruTree.h LruTree.cpp
+	$(CXX) $(CXXFLAGS) -c -o LruTree.o LruTree.cpp
 
 L3Line.o: L3Line.h L3Line.cpp
 	$(CXX) $(CXXFLAGS) -c -o L3Line.o L3Line.cpp
