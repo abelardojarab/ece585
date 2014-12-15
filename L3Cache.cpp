@@ -1,5 +1,5 @@
 /******************************************************************************
- * AUTHORS: Sean Hendrickson
+ * AUTHORS: Sean Hendrickson, Khalid Alkhulayfi,
  * FILE: L3Cache.cpp
  * LAST MODIFIED: 11/24/2014
  * DESCRIPTION: This file implements the L3Cache class.
@@ -66,8 +66,8 @@ int L3Cache::processOpcode (int opcode, string address) {
   unsigned int index=bits.to_ulong();
 
   string Result;          // string which will contain the result
-  ostringstream convert;   // stream used for the conversion
-  convert << index;      // insert the textual representation of 'Number' in the characters in the stream
+  ostringstream convert;  // stream used for the conversion
+  convert << index;       // insert the textual representation of 'Number' in the characters in the stream
   Result = convert.str(); // set 'Result' to the contents of the stream
 
   cout<<"Received opcode = "<<opcode<<", full address = "<<address<<", index = "<<Result<<endl;
@@ -75,33 +75,69 @@ int L3Cache::processOpcode (int opcode, string address) {
   switch (opcode) {
 
   case 0: // Read request from data cache
-    l3Sets[index].readData(Result);
+	// look for the line to get if it is hit or miss
+	l3Sets[index].readData(Result); 
+	// set this line to be MRU.
+	// if the line in the invalidate do memory read then check if the snoop result is HIT then sniff 
+		// and put the line in the Forward State. if the get a snoop result that is NOHIT then put the 
+		// MESIF in the Exclusive state. 
     break;
 
   case 1: // Write request from data cache
+	// write to the line. 
     l3Sets[index].writeData(Result,0);
+	// brodcast invalidate signal in the bus 
     break;
 
-  case 2: // Snooped invalidate command
-    // nothing, this is very important instruction cache doesnt do snoop
+  case 2: // Read request from intruction cache
+	// look for the line to get if it is hit or miss
+	l3Sets[index].readData(Result);
+	// set this line to be MRU.
+	// if the line in the invalidate do memory read otherwise 
     break;
 
-  case 3: // Read request from intruction cache
+  case 3: // Snooped invalidate command
+	// check if of the line is hit 
+	  // invalidate the line 
+	  // if the MESIF is ( F, E ) put snoop result HIT  and forward the line
+	  // if the MESIF is Shared do nothing
+	  // if the MESIF is modified then put HITM and write back the line 
+	// otherwise if the line is miss put snoop result NOHIT
     break;
 
   case 4: // Snooped read request
+	// Check if the line is hit and check the MESIF state of the line
+	// if hit
+	  // if MESIF is Forward then forward the line and put snoop result HIT change the MESIF to Shared
+	  // if MESIF is Shared then do nothing
+	  // if MESIF is Exclusive then Forward and change the line MESIF to Shared and put snoop result HIT
+	  // if MESIF is Modified then WriteBack the line and change the line MESIF to Shared and put snoop result HITM
+		// the CPU that request that line should wait (HOLD signal) until the line is written back to memory 
+		// than that line can be sniffed
+	// if NOHIT
+	  //Do nothing
     break;
 
   case 5: // Snooped write request
+	// check if that line is missd to be soure that there is no error
+	// check if that line has been requisted and the write buffer have just write it back to memory, so you need to sniff it.
     break;
 
   case 6: // Snooped read with intent to modify
+	// check if of the line is hit 
+	  // invalidate the line 
+	  // if the MESIF is ( F, E ) put snoop result HIT  and forward the line
+	  // if the MESIF is Shared do nothing
+	  // if the MESIF is modified then put HITM and write back the line 
+	// otherwise if the line is miss put snoop result NOHIT
     break;
 
   case 8: // Clear the cache and reset all state
+	// clear all the cache content and put all states to invalidate
     break;
 
   default: // this includes 9, which is print contents and state of each valid cache line (allow subsequent activity)
+	// print the valid lines and the State of those lines.
     break;
   }
 
