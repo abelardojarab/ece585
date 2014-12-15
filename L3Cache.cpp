@@ -74,34 +74,34 @@ int L3Cache::processOpcode (int opcode, string address) {
 
   switch (opcode) {
 
-  case 0:
+  case 0: // Read request from data cache
     l3Sets[index].readData(Result);
     break;
 
-  case 1:
+  case 1: // Write request from data cache
     l3Sets[index].writeData(Result,0);
     break;
 
-  case 2:
+  case 2: // Snooped invalidate command
     // nothing, this is very important instruction cache doesnt do snoop
     break;
 
-  case 3:
+  case 3: // Read request from intruction cache
     break;
 
-  case 4:
+  case 4: // Snooped read request
     break;
 
-  case 5:
+  case 5: // Snooped write request
     break;
 
-  case 6:
+  case 6: // Snooped read with intent to modify
     break;
 
-  case 8:
+  case 8: // Clear the cache and reset all state
     break;
 
-  default: // this includes 9
+  default: // this includes 9, which is print contents and state of each valid cache line (allow subsequent activity)
     break;
   }
 
@@ -114,7 +114,7 @@ L3Cache::~L3Cache()
 {
 
   //delete[] l3Sets;
-  for (int i=0; i<numSets; i++) {
+  for (int i=0; i<= numSets-1; i++) {
     l3Sets[i].~L3Set();
   }
 
@@ -131,7 +131,7 @@ L3Cache::~L3Cache()
  */
 int busOperation()
 {
-
+  
   return 0;
 }
 
