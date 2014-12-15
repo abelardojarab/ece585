@@ -57,11 +57,11 @@ L3Line* CLruTree::evictSpecificLine(std::string tag)
     return evict_noReplacement(root, tag, holdVictim);
 }
 
-L3Line* CLruTree::evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
+/*L3Line* CLruTree::evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
 {
 
   return holdVictim;
-}
+}*/
 
 // Print entire tree
 void CLruTree::printTree()
