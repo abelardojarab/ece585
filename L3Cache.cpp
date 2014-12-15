@@ -88,6 +88,11 @@ L3Cache::~L3Cache()
 {
 
   //delete[] l3Sets;
+  for (int i=0; i<numSets; i++) {
+    l3Sets[i].~L3Set();
+  }
+
+  operator delete[]( l3Sets );
 
 }
 
