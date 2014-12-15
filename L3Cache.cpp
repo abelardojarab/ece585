@@ -11,6 +11,13 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <cmath>
+#include <cfenv>
+#include <cerrno>
+
+#pragma STDC FENV_ACCESS ON
+
+using namespace std;
 
 // constructors
 L3Cache::L3Cache()
@@ -45,14 +52,17 @@ int L3Cache::L3CacheInit() {
     new( &l3Sets[i] )L3Set(numLines);
   }
 
+  tagMSBitIndex = log2(numSets)+1;
+  tagLSBitIndex = 32-log2(lineSize)-1;
+
+  cout<<"tag MSB = "<<tagMSBitIndex<<", tag LSB = "<<tagLSBitIndex<<endl;
   return 0;
 }
 
 int L3Cache::processOpcode (int opcode, string address) {
-
-  cout<<"Received opcode = "<<opcode<<", address = "<<address<<endl;
-  unsigned int index;
-
+  string tag;
+  tag = address.substr(tagMSBitIndex,tagLSBitIndex);
+  cout<<"Received opcode = "<<opcode<<", tag = "<<tag<<endl;
 
   switch (opcode) {
 
@@ -111,6 +121,7 @@ L3Cache::~L3Cache()
 int busOperation()
 {
 
+  return 0;
 }
 
 /**
@@ -136,6 +147,7 @@ int getSnoopResult(string tag)
 int putSnoopResult(int address, int snoopResult)
 {
 
+  return 0;
 }
 
 /**
@@ -159,7 +171,7 @@ void messageL2Cache(int busOp, int snoopResult)
  */
 int setEvent(int opcode, int address)
 {
-
+  return 0;
 }
 
 /**
@@ -184,6 +196,7 @@ int getAddr(int address)
 int setAddr(int address)
 {
 
+  return 0;
 }
 
 /**
