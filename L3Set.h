@@ -62,6 +62,7 @@ class L3Set
 	//     -1 if failed
 	int flush(void);
 
+	// prints all leafs in tree
 	void printSet(void);
 
   private:

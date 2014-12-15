@@ -100,6 +100,12 @@ private:
 	// print the lines in the tree
 	void printSet(BTreeNode* current);
 
+	// invalidates all lines that are leafs
+	void invalidateLeafs(BTreeNode* current);
+
+	// wrapper for invalidate leafs
+	void invalidateAll(void);
+
 
 	BTreeNode* root;
 	int nodesInTree;

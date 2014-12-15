@@ -544,4 +544,39 @@ void CLruTree::printSet(BTreeNode* current)
 
 }
 
-/* PUBLIC RAPPER FUNCTIONS */
+// invalidates all lines that are leafs
+void CLruTree::invalidateLeafs(BTreeNode* current)
+{
+	// display node if current is not null
+	if (current != NULL)
+	{
+		if (current->leaf != true)
+		{   // not a leaf so move to next nodes
+			// navigate right then left
+			printSet(current->right);
+			printSet(current->left);
+		}
+
+		// check if node is a leaf
+		else if (current->leaf == true)
+		{   // invalidate node
+			delete current->line;
+			current->line = NULL;
+			return;
+		}
+		else
+		{
+			return;
+		}
+	}
+	else
+	{
+		return;
+	}
+}
+
+// wrapper for invalidate leafs
+void CLruTree::invalidateAll(void)
+{
+	invalidateLeafs(root);
+}

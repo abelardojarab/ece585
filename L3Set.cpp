@@ -147,6 +147,15 @@ string L3Set::mesifStateModifier(string tag, int mesifState)
 	return "miss";  // function should not get to this point
 }
 
+// invalidate all lines in the cache
+// RET: 0 if all flushed
+//     -1 if failed
+int flush(void)
+{
+	void invalidateAll(void);
+	return 0;
+}
+
 // print the set
 void L3Set::printSet(void)
 {
