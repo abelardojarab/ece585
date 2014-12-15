@@ -53,19 +53,19 @@ int busOperation()
  * PRE-CONDITION:
  * POST-CONDITION:
  */
- 
+
 int getSnoopResult(string tag)
 {
-	if ((tag.At(0)==0)&&(tag.At(1)==0)
-		return 0; // Return HIT
-	else if ((tag.At(0)==0)&&(tag.At(1)==0)
-		return 1; // Return NOHIT
-	else if ((tag.At(0)==1)&&(tag.At(1)==0)
-		return 2; // Return HITM
-	else
-		return 3; // Not implemented
+  if ((tag.at(0)==0)&&(tag.at(1)==0))
+    return 0; // Return HIT
+  else if ((tag.at(0)==0)&&(tag.at(1)==0))
+    return 1; // Return NOHIT
+  else if ((tag.at(0)==1)&&(tag.at(1)==0))
+    return 2; // Return HITM
+  else
+    return 3; // Not implemented
 }
- 
+
 int putSnoopResult(int address, int snoopResult)
 {
 
