@@ -12,10 +12,8 @@
 #include <cstring>
 #include <iostream>
 #include <cmath>
-#include <cfenv>
-#include <cerrno>
-
-#pragma STDC FENV_ACCESS ON
+#include <sstream>
+#include <bitset>
 
 using namespace std;
 
@@ -62,11 +60,21 @@ int L3Cache::L3CacheInit() {
 int L3Cache::processOpcode (int opcode, string address) {
   string tag;
   tag = address.substr(tagMSBitIndex,tagLSBitIndex);
-  cout<<"Received opcode = "<<opcode<<", tag = "<<tag<<endl;
+  std::bitset<32> bits(tag);
+  unsigned int index=bits.to_ulong();
+
+
+  string Result;          // string which will contain the result
+  ostringstream convert;   // stream used for the conversion
+  convert << index;      // insert the textual representation of 'Number' in the characters in the stream
+  Result = convert.str(); // set 'Result' to the contents of the stream
+
+  cout<<"Received opcode = "<<opcode<<", index = "<<Result<<endl;
 
   switch (opcode) {
 
   case 0:
+    l3Sets[index].readData(Result);
     break;
 
   case 1:
