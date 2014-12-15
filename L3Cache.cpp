@@ -62,6 +62,9 @@ int L3Cache::processOpcode (int opcode, string address) {
   string indexstr;
   indexstr = address.substr(indexMSBitIndex,log2(numSets));
 
+  string tag;
+  tag = address.substr(1,indexMSBitIndex-1);
+
   std::bitset<32> bits(indexstr);
   unsigned int index=bits.to_ulong();
 
@@ -86,13 +89,13 @@ int L3Cache::processOpcode (int opcode, string address) {
       // if getsnoopresult == HIT
       if (getSnoopResult(tag) == 0){//check
         // Bus operation :  memory read
-        busOperation("Memory read");//check
+        busOperation("Memory read",address,"Hit");//check
         // change the state to Forward
         current.setMESIF(4);
       }// if getsnoopresult == NOHIT
       if (getSnoopResult(tag) == 1){
         // Bus operation :  memory read
-        busOperation("Memory read");//check
+        busOperation("Memory read",address,"No hit");//check
         // change the state to Exclusive
         current.setMESIF(1);
       }
@@ -112,7 +115,7 @@ int L3Cache::processOpcode (int opcode, string address) {
     // if the line MESIF state is IFS
     if (MESIFstate == 3 || MESIFstate == 4 || MESIFstate == 2){
       // Bus operation : brodcast invalidate signal.
-      busOperation("Invalidate");//check
+      busOperation("Invalidate",address,"");//check
     }
     // if the line MESIF state is EM
     // do nothing
@@ -129,13 +132,13 @@ int L3Cache::processOpcode (int opcode, string address) {
       // if getsnoopresult == HIT
       if (getSnoopResult(tag) == 0){//check
         // Bus operation :  memory read
-        busOperation("Memory read");//check
+        busOperation("Memory read",address,"Hit");//check
         // change the state to Forward
         current.setMESIF(4);
       }// if getsnoopresult == NOHIT
       if (getSnoopResult(tag) == 1){
         // Bus operation :  memory read
-        busOperation("Memory read");//check
+        busOperation("Memory read",address,"No hit");//check
         // change the state to Exclusive
         current.setMESIF(1);
       }
@@ -164,7 +167,7 @@ int L3Cache::processOpcode (int opcode, string address) {
           // put snoop reult HIT
           putSnoopResult(address, 0);
           // Bus operation : Forward
-          busOperation("Forward");
+          busOperation("Forward",address,"Hit");
         }
         // if MESIF == M
         if (MESIFstate == 0)
@@ -174,7 +177,7 @@ int L3Cache::processOpcode (int opcode, string address) {
             // put snoop reult HIT
             putSnoopResult(address, 0);
             // Bus operation : write the line back
-            busOperation("WriteBack");
+            busOperation("WriteBack",address,"Hit");
           }
         // message to L2 cache to invalidate its copy
         messageL2Cache("evict the line",current);
@@ -195,7 +198,7 @@ int L3Cache::processOpcode (int opcode, string address) {
         // if MESIF is Forward
         if (MESIFstate == 0){
           // Bus operation : forward the line
-          busOperation("WriteBack");
+          busOperation("WriteBack",address,"Hit Modified");
           // put snoop result HIT
           putSnoopResult(address, 0);
           // change the MESIF to Shared
@@ -206,7 +209,7 @@ int L3Cache::processOpcode (int opcode, string address) {
         // if MESIF is Exclusive
         if (MESIFstate == 1){
           // Bus operation : Forward the line
-          busOperation("Forward");
+          busOperation("Forward",address,"Hit");
           // change the line MESIF to Shared
           current.setMESIF(2);
           // put snoop result HIT
@@ -214,7 +217,7 @@ int L3Cache::processOpcode (int opcode, string address) {
         }// if MESIF is Modified
         if (MESIFstate == 0){
           // Bus operation : WriteBack the line
-          busOperation("WriteBack");
+          busOperation("WriteBack",address,"Hit Modified");
           // change the line MESIF to Shared
           current.setMESIF(2);
           // put snoop result HITM
@@ -255,7 +258,7 @@ int L3Cache::processOpcode (int opcode, string address) {
         // put snoop reult HIT
         putSnoopResult(address, 0);
         // Bus operation : Forward
-        busOperation("Forward");
+        busOperation("Forward",address,"Hit");
       }
       // if MESIF == M
       if (MESIFstate == 0){
@@ -264,7 +267,7 @@ int L3Cache::processOpcode (int opcode, string address) {
         // put snoop reult HIT
         putSnoopResult(address, 0);
         // Bus operation : write the line back
-        busOperation("WriteBack");
+        busOperation("WriteBack",address,"Hit");
       }
       // message to L2 cache to invalidate its copy
       messageL2Cache("evict the line", current);//check
