@@ -51,6 +51,10 @@ public:
 	//      NULL if failed
 	L3Line* evictLine(L3Line* newLine);
 
+	// evict a line with the matching tag
+	// RET: pointer to evicted line
+	L3Line* evictSpecificLine(std::string tag);
+
 	// Print entire tree
 	void printTree();
 
@@ -79,6 +83,11 @@ private:
 	// RET: pointer to evicted line on success
 	//      NULL if failed
 	L3Line* evict(BTreeNode* current, L3Line* newLine, L3Line* holdVictim);
+
+	// evict a line by without replacing it with a new line
+	// RET: pointer to evicted line on success
+	//      NULL if failed
+	L3Line* evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim);
 
 	// add a line by searching for an empty space in the leafs
 	// RETURNS: 0 if new line placed, or -1 if all space full

@@ -66,14 +66,15 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	int getLRU();
+	//int getLRU();
 	
     /**
 	* DESC: evict a line from the set
 	* PARAM: evictedLineNum - location of line in set
 	* RETURN: return tag of evicted line
 	*/	
-	string evict(int evictedLineNum);
+	//string evict(int evictedLineNum);
+	
 	
 	/**
 	* DESC:
@@ -82,7 +83,7 @@ class L3Set
 	* PRE-CONDITION:
 	* POST-CONDITION:
 	*/
-	void changeLRUBits(int numLine);
+	//void changeLRUBits(int numLine);
 	
 	int numLines;
 	//L3Line *l3Line;
