@@ -97,6 +97,8 @@ private:
   int lineSize;
   int numLines;
   int numSets;
+  int tagMSBitIndex;
+  int tagLSBitIndex;
   L3Set* l3Sets;
   void* raw_memory;
 };

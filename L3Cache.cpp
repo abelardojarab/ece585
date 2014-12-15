@@ -11,6 +11,11 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <cmath>
+#include <sstream>
+#include <bitset>
+
+using namespace std;
 
 // constructors
 L3Cache::L3Cache()
@@ -45,18 +50,31 @@ int L3Cache::L3CacheInit() {
     new( &l3Sets[i] )L3Set(numLines);
   }
 
+  tagMSBitIndex = log2(numSets)+1;
+  tagLSBitIndex = 32-log2(lineSize)-1;
+
+  cout<<"tag MSB = "<<tagMSBitIndex<<", tag LSB = "<<tagLSBitIndex<<endl;
   return 0;
 }
 
 int L3Cache::processOpcode (int opcode, string address) {
+  string tag;
+  tag = address.substr(tagMSBitIndex,tagLSBitIndex);
+  std::bitset<32> bits(tag);
+  unsigned int index=bits.to_ulong();
 
-  cout<<"Received opcode = "<<opcode<<", address = "<<address<<endl;
-  unsigned int index;
 
+  string Result;          // string which will contain the result
+  ostringstream convert;   // stream used for the conversion
+  convert << index;      // insert the textual representation of 'Number' in the characters in the stream
+  Result = convert.str(); // set 'Result' to the contents of the stream
+
+  cout<<"Received opcode = "<<opcode<<", index = "<<Result<<endl;
 
   switch (opcode) {
 
   case 0:
+    l3Sets[index].readData(Result);
     break;
 
   case 1:
@@ -111,6 +129,7 @@ L3Cache::~L3Cache()
 int busOperation()
 {
 
+  return 0;
 }
 
 /**
@@ -136,6 +155,7 @@ int getSnoopResult(string tag)
 int putSnoopResult(int address, int snoopResult)
 {
 
+  return 0;
 }
 
 /**
@@ -159,7 +179,7 @@ void messageL2Cache(int busOp, int snoopResult)
  */
 int setEvent(int opcode, int address)
 {
-
+  return 0;
 }
 
 /**
@@ -184,6 +204,7 @@ int getAddr(int address)
 int setAddr(int address)
 {
 
+  return 0;
 }
 
 /**
