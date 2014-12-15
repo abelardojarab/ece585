@@ -50,19 +50,20 @@ int L3Cache::L3CacheInit() {
     new( &l3Sets[i] )L3Set(numLines);
   }
 
-  tagMSBitIndex = log2(numSets)+1;
-  tagLSBitIndex = 32-log2(lineSize)-1;
+  indexMSBitIndex = 32-log2(lineSize)-log2(numSets)+1;
+  indexLSBitIndex = 32-log2(lineSize);
 
-  cout<<"tag MSB = "<<tagMSBitIndex<<", tag LSB = "<<tagLSBitIndex<<endl;
+  cout<<"tag MSB = "<<indexMSBitIndex<<", tag LSB = "<<indexLSBitIndex<<endl;
   return 0;
 }
 
 int L3Cache::processOpcode (int opcode, string address) {
-  string tag;
-  tag = address.substr(tagMSBitIndex,tagLSBitIndex);
-  std::bitset<32> bits(tag);
-  unsigned int index=bits.to_ulong();
 
+  string indexstr;
+  indexstr = address.substr(indexMSBitIndex,indexLSBitIndex);
+
+  std::bitset<32> bits(indexstr);
+  unsigned int index=bits.to_ulong();
 
   string Result;          // string which will contain the result
   ostringstream convert;   // stream used for the conversion
