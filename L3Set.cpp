@@ -12,20 +12,22 @@
 L3Set::L3Set(const int numLines)
 {
   this->numLines = numLines;
-  l3Line = new L3Line[numLines];  //
-  lruBits = "000000000000000";
+  lruTree = new CLruTree(numLines);
+  //l3Line = new L3Line[numLines];  //
+  //lruBits = "000000000000000";
 
 }
 
 // destructor
 L3Set::~L3Set()
 {
-  for(int i=0; i<numLines; i++) {
-    l3Line[i].~L3Line();
-  }
-  delete[] l3Line;
   numLines = 0;
-  lruBits = "000000000000000";
+  delete lruTree;
+  //for(int i=0; i<numLines; i++) {
+  //  l3Line[i].~L3Line();
+  //}
+  //delete[] l3Line;
+  //lruBits = "000000000000000";
 }
 
 /**
@@ -35,20 +37,15 @@ L3Set::~L3Set()
  */
 string L3Set::readData(string tag)
 {
-  for(int i = 0; i <= numLines - 1; ++i)
-    {
-      if (l3Line[i].getTag() == tag)
-        {
-          return "hit\n";
-          changeLRUBits(i);
-          break;
-        }
-      else if (i == (numLines - 1))
-        {
-          return "miss\n";
-        }
-    }
-  return "miss\n";  // function should not get to this point
+	if ((lruTree->getLine(tag)) == 0)
+	{   // matching tag found
+		return "hit\n";
+	}
+	else
+	{   // matching tag not found
+		return "miss\n";
+	}
+	return "miss\n";  // function should not get to this point
 }
 
 /**
@@ -59,28 +56,25 @@ string L3Set::readData(string tag)
  */
 string L3Set::writeData(string tag, int mesifState)
 {
-  for (int i = 0; i <= numLines - 1; ++i)
-    {
-      if (l3Line[i].getTag() == "0")
-        {
-          l3Line[i].setTag(tag);
-          l3Line[i].setMESIF(mesifState);
-          if (mesifState == 0) l3Line[i].setDirtyBit(1);
-          changeLRUBits(i);
-          return "done\n";
-        }
-      else if (i == (numLines - 1))
-        {
-          int evictedLineNum = getLRU();
-          evict(evictedLineNum);
-          l3Line[evictedLineNum].setTag(tag);
-          l3Line[evictedLineNum].setMESIF(mesifState);
-          if (mesifState == 0) l3Line[evictedLineNum].setDirtyBit(1);
-          changeLRUBits(evictedLineNum);
-          return "done\n";// return the address to write back it to Memo.
-        }
-    }
-  return "done\n";  // function should not get to this point
+	if (lruTree->getLine(tag) == 0)
+	{
+		l3Line[i].setTag(tag);
+		l3Line[i].setMESIF(mesifState);
+		if (mesifState == 0) l3Line[i].setDirtyBit(1);
+			changeLRUBits(i);
+			return "done\n";
+	}
+	else if (i == (numLines - 1))
+	{
+		int evictedLineNum = getLRU();
+		evict(evictedLineNum);
+		l3Line[evictedLineNum].setTag(tag);
+		l3Line[evictedLineNum].setMESIF(mesifState);
+		if (mesifState == 0) l3Line[evictedLineNum].setDirtyBit(1);
+		changeLRUBits(evictedLineNum);
+		return "done\n";// return the address to write back it to Memo.
+	}
+	return "done\n";  // function should not get to this point
 }
 
 

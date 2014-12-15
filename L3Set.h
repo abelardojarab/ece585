@@ -11,6 +11,7 @@
 #include <string>
 #include <cstring>
 #include "L3Line.h"
+#include "LruTree.h"
 
 using namespace std;
 
@@ -84,7 +85,8 @@ class L3Set
 	void changeLRUBits(int numLine);
 	
 	int numLines;
-	L3Line *l3Line;
+	//L3Line *l3Line;
+	CLruTree* lruTree;
 	string lruBits;
 }; 
 
