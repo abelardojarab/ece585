@@ -20,7 +20,10 @@ L3Set::L3Set(const int numLines)
 // destructor
 L3Set::~L3Set()
 {
-  delete l3Line;
+  for(int i=0; i<numLines; i++) {
+    l3Line[i].~L3Line();
+  }
+  delete[] l3Line;
   numLines = 0;
   lruBits = "000000000000000";
 }
