@@ -81,7 +81,7 @@ int L3Cache::processOpcode (int opcode, string address) {
     // if the line in the invalidate do memory read then check if the snoop result is HIT then sniff
     // and put the line in the Forward State. if the get a snoop result that is NOHIT then put the
     // MESIF in the Exclusive state.
-    readCount++;
+    /*readCount++;
     way = checkTag(index, tag);
     // if the tag exists
     if (way <= MAXWAY)
@@ -113,7 +113,7 @@ int L3Cache::processOpcode (int opcode, string address) {
         L2cache[index][way].tag = tag;
         L2cache[index][way].MESIbits = E;
       }
-    L2cache[index][way].address = addr;
+      L2cache[index][way].address = addr;*/
     break;
 
   case 1: // Write request from data cache
@@ -263,7 +263,7 @@ int setEvent(int opcode, int address)
  */
 int getAddr(int address)
 {
-	return 0;
+    return 0;
 }
 
 /**
@@ -288,5 +288,5 @@ int setAddr(int address)
  */
 int mappingIndex()
 {
-	return 0;
+    return 0;
 }
