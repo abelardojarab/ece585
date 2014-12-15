@@ -36,14 +36,49 @@ L3Cache::L3Cache(int numLines, int numSets)
 // Allocates memory
 int L3Cache::L3CacheInit() {
 
+  void* raw_memory = operator new[](numSets*sizeof(L3Set));
+  l3Sets = static_cast<L3Set*>( raw_memory );
+
+  for (int i=0; i<numSets;i++) {
+    new( &l3Sets[i] )L3Set(numLines);
+  }
 
   return 0;
 }
 
 int L3Cache::processOpcode (int opcode, string address) {
 
-
   cout<<"Received opcode = "<<opcode<<", address = "<<address<<endl;
+  switch (opcode) {
+
+  case 0:
+    break;
+
+  case 1:
+    break;
+
+  case 2:
+    break;
+
+  case 3:
+    break;
+
+  case 4:
+    break;
+
+  case 5:
+    break;
+
+  case 6:
+    break;
+
+  case 8:
+    break;
+
+  default: // this includes 9
+    break;
+  }
+
   return 0;
 }
 
@@ -51,6 +86,8 @@ int L3Cache::processOpcode (int opcode, string address) {
 // destructor
 L3Cache::~L3Cache()
 {
+
+  //delete[] l3Sets;
 
 }
 
