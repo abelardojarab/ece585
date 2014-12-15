@@ -35,17 +35,18 @@ L3Set::~L3Set()
  * PARAM: tag - binary string of tag bits
  * RETURN: return "hit" or "miss"
  */
-string L3Set::readData(string tag)
+L3Line* L3Set::readData(string tag)
 {
-	if ((lruTree->getLine(tag)) == 0)
+	L3Line* temp = lruTree->getLine(tag);
+	if (temp != NULL)
 	{   // matching tag found
-		return "hit\n";
+		return temp;
 	}
 	else
 	{   // matching tag not found
-		return "miss\n";
+		return NULL;
 	}
-	return "miss\n";  // function should not get to this point
+	return NULL;  // function should not get to this point
 }
 
 /**
@@ -103,18 +104,18 @@ string L3Set::writeData(string tag, int mesifState)
  */
 string L3Set::checkHit(string tag)
 {
-	int ret = lruTree->getLine(tag);
-	if (ret == 0)
+	L3Line* ret = lruTree->getLine(tag);
+	if (ret != NULL)
 	{   // match found
-		return "hit\n";
+		return "hit";
 	}
-	else if (ret < 0)
+	else if (ret == NULL)
 	{   // tag not found
-		return "miss\n";
+		return "miss";
 	}
 	else
 	{   // an error must have occurred
-		return "miss\n";  
+		return "miss";  
 	}
 }
 
@@ -130,10 +131,10 @@ string L3Set::checkHit(string tag)
 string L3Set::mesifStateModifier(string tag, int mesifState)
 {
 	L3Line* holdVictim = NULL;
-	int ret = lruTree->getLine(tag);
+	L3Line* ret = lruTree->getLine(tag);
 
 	// if matching tag is found
-	if (ret == 0)
+	if (ret != NULL)
 	{
 		if ( mesifState == 3 )
 		{ // 3 is invalid state.
@@ -141,18 +142,18 @@ string L3Set::mesifStateModifier(string tag, int mesifState)
 			if (holdVictim == NULL)
 			{
 				if (!SILENT) std::cout << "ERROR - specified line not found\n";
-				return "error\n";
+				return "error";
 			}
 		 
 			holdVictim->setMESIF(mesifState); 
 			return holdVictim->getTag();// return the address to write back to Memo.
         }
-		else if (ret < 0) // if miss, then it is error.
+		else if (ret == NULL) // if miss, then it is error.
         {
-			return "miss\n";
+			return "miss";
         }
     }
-	return "miss\n";  // function should not get to this point
+	return "miss";  // function should not get to this point
 }
 
 

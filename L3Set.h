@@ -29,7 +29,7 @@ class L3Set
 	* PARAM: tag - binary string of tag bits
 	* RETURN: return "hit" or "miss"
 	*/	
-	string readData(string tag);
+	L3Line* readData(string tag);
 	
 	/**
 	* DESC: writes to a line
