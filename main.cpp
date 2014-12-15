@@ -2,8 +2,8 @@
  * Authors: Sean Hendrickson, khalid alkhulayfi,
  *          Abelardo Jara-Berrocal, Meng Lei
  * File: main.cpp
- * Last Modified:
- * Description:
+ * Last Modified: 12/15/2014
+ * Description: 
  ******************************************************************************/
 
 #include "L3Cache.h"
@@ -16,10 +16,15 @@
 
 using namespace std;
 
+// arg1 = trace file
+// arg2 = lines per set
+// arg3 = number of sets
+// arg4 = size of line in bytes
 int main(int argc, char* argv[])
 {
-  int numLines = 256;
-  int numSets = 16;
+  // NOTE: numSets = 8MB/(linesPerSet * BytesPerLine)
+  int numLines = 16;
+  int numSets = 8192;
   int lineSize = 64;
 
   if ((argc < 2) || (argc > 5) || (argc == 3)) {
