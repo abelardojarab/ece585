@@ -74,103 +74,210 @@ int L3Cache::processOpcode (int opcode, string address) {
 
   switch (opcode) {
 
-  case 0: // Read request from data cache
-    // look for the line to get if it is hit or miss
-    l3Sets[index].readData(Result);
-    // set this line to be MRU.
-    // if the line in the invalidate do memory read then check if the snoop result is HIT then sniff
-    // and put the line in the Forward State. if the get a snoop result that is NOHIT then put the
-    // MESIF in the Exclusive state.
-    /*readCount++;
-    way = checkTag(index, tag);
-    // if the tag exists
-    if (way <= MAXWAY)
-      {
-        int MESI = L2cache[index][way].MESIbits;
-        // if this tag exists and it's valid as per its MESI bits
-        if (MESI == M || MESI == E || MESI == S)
-          {
-            hitCount++;
-            updateLRU(index, way);
-            // MESI remains unchanged
-          }
-        // if this tag exists but it's been invalidated and can't be used...
-        // we fetch from DRAM and pass on to L1 cache, update to exclusive
-        else
-          {
-            missCount++;
-            updateLRU(index, way);
-            L2cache[index][way].MESIbits = E;
-          }
-      }
-    // this tag simply doesn't exist in the cache in any form
-    else
-      {
-        missCount++;
-        // use the LRU bits to determine which way to evict
-        way = checkLRU(index);
-        updateLRU(index, way);
-        L2cache[index][way].tag = tag;
-        L2cache[index][way].MESIbits = E;
-      }
-      L2cache[index][way].address = addr;*/
+  case 0: // Read request from data cache - 32b
+	// look for the line to get if it is hit or miss
+	L3Line current = l3Sets[index].readData(Result); //check
+	//pull up the MESIF state for this line
+	int MESIFstate = current.getMESIF();
+
+	// if the line in the invalidate 
+	if (MESIFstate == 3){
+		// if getsnoopresult == HIT 
+		if (getSnoopResult(tag) == 0){//check
+			// Bus operation :  memory read
+			busOperation("Memory read");//check
+			// change the state to Forward
+			current.setMESIF(4);
+		}// if getsnoopresult == NOHIT
+		if (getSnoopResult(tag) == 1){
+			// Bus operation :  memory read
+			busOperation("Memory read");//check
+			// change the state to Exclusive
+			current.setMESIF(1);
+		}
+	}
+	// if the line in the ( MFSE )
+		// don't check the getsnoopresult
+		// don't do any bus operations 
+		// don't modify the state  
     break;
 
   case 1: // Write request from data cache
-    // write to the line.
+	// check if you have the line and save the MESIF state value 
+	L3Line current = l3Sets[index].readData(Result); //check
+	int MESIFstate = current.getMESIF();
+	// write to the line and the MESIF state to modified. 
     l3Sets[index].writeData(Result,0);
-    // brodcast invalidate signal in the bus
+	// if the line MESIF state is IFS
+	if (MESIFstate == 3 || MESIFstate == 4 || MESIFstate == 2){
+		// Bus operation : brodcast invalidate signal. 
+		busOperation("Invalidate");//check
+	}
+	// if the line MESIF state is EM
+		// do nothing 
     break;
 
-  case 2: // Read request from intruction cache
-    // look for the line to get if it is hit or miss
-    // l3Sets[index].readData(Result);
-    // set this line to be MRU.
-    // if the line in the invalidate do memory read otherwise
+  case 2: // Read request from intruction cache - 24b
+	  // look for the line to get if it is hit or miss
+	  L3Line current = l3Sets[index].readData(Result); //check
+	  //pull up the MESIF state for this line
+	  int MESIFstate = current.getMESIF();
+
+	  // if the line in the invalidate 
+	  if (MESIFstate == 3){
+		  // if getsnoopresult == HIT 
+		  if (getSnoopResult(tag) == 0){//check
+			  // Bus operation :  memory read
+			  busOperation("Memory read");//check
+			  // change the state to Forward
+			  current.setMESIF(4);
+		  }// if getsnoopresult == NOHIT
+		  if (getSnoopResult(tag) == 1){
+			  // Bus operation :  memory read
+			  busOperation("Memory read");//check
+			  // change the state to Exclusive
+			  current.setMESIF(1);
+		  }
+	  }
+	  // if the line in the ( MFSE )
+		// don't check the getsnoopresult
+		// don't do any bus operations 
+		// don't modify the state  
     break;
 
   case 3: // Snooped invalidate command
-    // check if of the line is hit
-      // invalidate the line
-      // if the MESIF is ( F, E ) put snoop result HIT  and forward the line
-      // if the MESIF is Shared do nothing
-      // if the MESIF is modified then put HITM and write back the line
-    // otherwise if the line is miss put snoop result NOHIT
+	// check if of the line is hit and get the MESIF state of that line 
+	if (l3Sets[index].checkHit(Result) == "hit"){// check
+		L3Line current = l3Sets[index].readData(Result);
+		int MESIFstate = current.getMESIF();
+	  // if MESIF == S 
+	  if (MESIFstate == 2){
+		//invalidate the line
+		current.setMESIF(3);
+	  }
+	  // if MESIF == FE
+	  if (MESIFstate == 4 || MESIFstate == 1){
+		  // invalidate the line 
+		  current.setMESIF(3);
+		  // put snoop reult HIT
+		  putSnoopResult(address, 0);
+		  // Bus operation : Forward
+		  busOperation("Forward");
+	  }
+	  // if MESIF == M
+	  if (MESIFstate == 0){
+		  // invalidate the line
+		  current.setMESIF(3);
+		  // put snoop reult HIT
+		  putSnoopResult(address, 0);
+		  // Bus operation : write the line back
+		  busOperation("WriteBack");
+	  }
+	  // message to L2 cache to invalidate its copy
+	  messageL2Cache("evict the line",current)//check
+	}// otherwise if the line is miss put snoop result NOHIT
+	else {
+		putSnoopResult(address,1);
+	}
     break;
 
   case 4: // Snooped read request
-    // Check if the line is hit and check the MESIF state of the line
-    // if hit
-      // if MESIF is Forward then forward the line and put snoop result HIT change the MESIF to Shared
-      // if MESIF is Shared then do nothing
-      // if MESIF is Exclusive then Forward and change the line MESIF to Shared and put snoop result HIT
-      // if MESIF is Modified then WriteBack the line and change the line MESIF to Shared and put snoop result HITM
-        // the CPU that request that line should wait (HOLD signal) until the line is written back to memory
-        // than that line can be sniffed
-    // if NOHIT
-      //Do nothing
+	// Check if the line is hit and get the MESIF state of the line
+	if (l3Sets[index].readData(Result) == "hit"){
+	// if hit
+		L3Line current = l3Sets[index].readData(Result);
+		int MESIFstate = current.getMESIF();
+	  // if MESIF is Forward 
+		if (MESIFstate == 0){
+			// Bus operation : forward the line 
+			busOperation("WriteBack");
+			// put snoop result HIT
+			putSnoopResult(address, 0);
+			// change the MESIF to Shared
+			current.setMESIF(2);
+		}
+	  // if MESIF is Shared then do nothing
+		// Do nothing
+	  // if MESIF is Exclusive 
+		if (MESIFstate == 1){
+			// Bus operation : Forward the line 
+			busOperation("Forward");
+			// change the line MESIF to Shared 
+			current.setMESIF(2);
+			// put snoop result HIT
+			putSnoopResult(address, 0);
+		}// if MESIF is Modified 
+		if (MESIFstate == 0){
+			// Bus operation : WriteBack the line 
+			busOperation("WriteBack");
+			// change the line MESIF to Shared
+			current.setMESIF(2);
+			// put snoop result HITM
+			putSnoopResult(address, 2);
+		}
+		// the CPU that request that line should wait (HOLD signal) until the line is written back to memory 
+		// than that line can be sniffed
+
+	  // if MESIF is Invalidate
+		// Do noting
+	// if NOHIT
+	  //Do nothing
     break;
 
   case 5: // Snooped write request
-    // check if that line is missd to be soure that there is no error
-    // check if that line has been requisted and the write buffer have just write it back to memory, so you need to sniff it.
+	// check if that line is missd to be sure that there is no error
+	  if (l3Sets[index].checkHit(Result) == "hit"){// check
+		  current.setMESIF(3);
+	  }
+	// check if that line has been requisted and the write buffer have just write it back to memory, so you need to sniff it.
+
     break;
 
   case 6: // Snooped read with intent to modify
-    // check if of the line is hit
-      // invalidate the line
-      // if the MESIF is ( F, E ) put snoop result HIT  and forward the line
-      // if the MESIF is Shared do nothing
-      // if the MESIF is modified then put HITM and write back the line
-    // otherwise if the line is miss put snoop result NOHIT
+	  // check if of the line is hit and get the MESIF state of that line 
+	  if (l3Sets[index].checkHit(Result) == "hit"){// check
+		  L3Line current = l3Sets[index].readData(Result);
+		  int MESIFstate = current.getMESIF();
+		  // if MESIF == S 
+		  if (MESIFstate == 2){
+			  //invalidate the line
+			  current.setMESIF(3);
+		  }// if MESIF == FE
+		  if (MESIFstate == 4 || MESIFstate == 1){
+			  // invalidate the line 
+			  current.setMESIF(3);
+			  // put snoop reult HIT
+			  putSnoopResult(address, 0);
+			  // Bus operation : Forward
+			  busOperation("Forward");
+		  }
+		  // if MESIF == M
+		  if (MESIFstate == 0){
+			  // invalidate the line 
+			  current.setMESIF(3);
+			  // put snoop reult HIT
+			  putSnoopResult(address, 0);
+			  // Bus operation : write the line back
+			  busOperation("WriteBack");
+		  }
+		  // message to L2 cache to invalidate its copy
+		  messageL2Cache("evict the line", current)//check
+	  }
+	  // otherwise if the line is miss put snoop result NOHIT
     break;
 
   case 8: // Clear the cache and reset all state
-    // clear all the cache content and put all states to invalidate
+	// clear all the cache content and put all states to invalidate
+	  for (int i = 0; i < (numSets - 1); i++){
+		  L3Set[i].flush();
+	  }
     break;
 
   default: // this includes 9, which is print contents and state of each valid cache line (allow subsequent activity)
-    // print the valid lines and the State of those lines.
+	// print the valid lines and the State of those lines.
+	  for (int i = 0; i < (numSets - 1); i++){
+		  L3Set[i].printSet();
+	  }
     break;
   }
 
@@ -200,7 +307,7 @@ L3Cache::~L3Cache()
  */
 int busOperation()
 {
-
+  
   return 0;
 }
 
@@ -263,7 +370,7 @@ int setEvent(int opcode, int address)
  */
 int getAddr(int address)
 {
-    return 0;
+
 }
 
 /**
@@ -288,5 +395,5 @@ int setAddr(int address)
  */
 int mappingIndex()
 {
-    return 0;
+
 }
