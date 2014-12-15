@@ -57,6 +57,13 @@ class L3Set
 	*/
 	string mesifStateModifier(string tag, int mesifState);
 
+	// invalidate all lines in the cache
+	// RET: 0 if all flushed
+	//     -1 if failed
+	int flush(void);
+
+	void printSet(void);
+
   private:
 
     /**

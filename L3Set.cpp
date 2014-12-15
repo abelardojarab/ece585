@@ -67,7 +67,7 @@ string L3Set::writeData(string tag, int mesifState)
 	if (ret == 0)
 	{   // space found for new line
 		if (mesifState == 0) temp->setDirtyBit(1);
-		return "done\n";
+		return "done";
 	}
 	else if (ret < 0)
 	{   // line needs to be evicted
@@ -75,19 +75,10 @@ string L3Set::writeData(string tag, int mesifState)
 		if ((holdVictim = lruTree->evictLine(temp)) == NULL)
 		{   // eviction failed
 			if (!SILENT) std::cout << "ERROR - Eviction Failed\n";
-			return "Efailed\n";
+			return "Efailed";
 		}
 		if (mesifState == 0) holdVictim->setDirtyBit(1);
 		return holdVictim->getTag();  // return tag of evicted line
-
-		
-		/*int evictedLineNum = getLRU();
-		evict(evictedLineNum);
-		l3Line[evictedLineNum].setTag(tag);
-		l3Line[evictedLineNum].setMESIF(mesifState);
-		if (mesifState == 0) l3Line[evictedLineNum].setDirtyBit(1);
-		changeLRUBits(evictedLineNum);
-		return "done\n";// return the address to write back it to Memo.*/
 	}
 	else
 	{
@@ -155,6 +146,13 @@ string L3Set::mesifStateModifier(string tag, int mesifState)
     }
 	return "miss";  // function should not get to this point
 }
+
+// print the set
+void L3Set::printSet(void)
+{
+	lruTree->printSet();
+}
+
 
 
 /**
