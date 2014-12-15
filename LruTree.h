@@ -34,9 +34,9 @@ public:
 	~CLruTree();
 	
 	// find if a line with a matching tag is in the set
-	// RET: 0 if match found
-	//     -1 if no match found
-	int getLine(std::string tag);
+	// RET: ptr to found line if match found
+	//     NULL if no match found
+	L3Line* getLine(std::string tag);
 
 	// return the number of nodes + lines in tree
 	int getNumNodes(void) { return nodesInTree; }
@@ -63,8 +63,9 @@ public:
 
 private:
 	// search tree for a line with matching tag
-	// RETURN: 0 if match found, else -1 if no match found
-	int findLine(std::string tag, BTreeNode* current);
+	// RETURN: ptr to line if match found, 
+    //         else NULL if no match found
+	L3Line* findLine(std::string tag, BTreeNode* current, L3Line* holdLine);
 
 	// this function creates the tree
 	int initializeTree(int numLines);

@@ -24,11 +24,12 @@ CLruTree::~CLruTree()
 }
 
 // find if a line with a matching tag is in the set
-// RET: 0 if match found
-//     -1 if no match found
-int CLruTree::getLine(std::string tag)
+// RET: ptr to found line if match found
+//     NULL if no match found
+L3Line*  CLruTree::getLine(std::string tag)
 {
-    return findLine(tag, root);
+	L3Line* holdLine;
+    return findLine(tag, root, holdLine);
 }
 
 // Add a line to the set
@@ -75,13 +76,15 @@ void CLruTree::printSet()
 }
 
 // search tree for a line with matching tag
-// RETURN: 0 if match found, else -1 if no match found
-int CLruTree::findLine(std::string tag, BTreeNode* current)
+// RETURN: ptr to line if match found, 
+//         else NULL if no match found
+L3Line*  CLruTree::findLine(std::string tag, BTreeNode* current,
+							L3Line* holdLine)
 {
     // make sure current not null
     if (current == NULL)
     {
-        return -1;
+        return NULL;
     }
 
     // check if node is a leaf
@@ -90,19 +93,19 @@ int CLruTree::findLine(std::string tag, BTreeNode* current)
         // check if current node is leaf
         if ((current->leaf) == false)
         {   // continue navigating tree
-            if (findLine(tag, current->right) == 0)
+            if ((holdLine = findLine(tag, current->right, holdLine)) != NULL)
             {   // MRU found on right, set bit left=0
                 current->bit = 0;
-                return 0;
+                return holdLine;
             }
-            else if (findLine(tag, current->left) == 0)
+            else if ((holdLine = findLine(tag, current->left, holdLine)) != NULL)
             {   // MRU found on left, set bit right=1
                 current->bit = 1;
-                return 0;
+                return holdLine;
             }
             else
             {   // no match found on left or right sides
-                return -1;
+                return NULL;
             }
         }
     }
@@ -111,14 +114,14 @@ int CLruTree::findLine(std::string tag, BTreeNode* current)
     {
         if (current->line->getTag() == tag)
         {   // line found
-            return 0;
+            return current->line;
         }
         else
         {   // line not found
-            return -1;
+            return NULL;
         }
     }
-    return -1;
+    return NULL;
 }
 
 // this function creates the tree
@@ -310,7 +313,6 @@ return -1;
 }
 */
 
-<<<<<<< HEAD
 // evict a line by replacing it with a new line
 // RET: pointer to evicted line on success
 //      NULL if failed
@@ -408,8 +410,6 @@ L3Line* CLruTree::evict_noReplacement(BTreeNode* current, std::string tag, L3Lin
 	}
 	return NULL;  // error if get to this point
 }
-=======
->>>>>>> d898974cf0bcc5237473b2db6500050de5534035
 
 
 // add a line by searching for an empty space in the leafs
