@@ -520,9 +520,10 @@ void CLruTree::printSet(BTreeNode* current)
         // check if node is a leaf
         else if (current->leaf == true)
         {   // display current node information
-            std::cout << "leaf = true , ";
-            std::cout << "bit = " << current->bit << ", "
-                << "level = " << current->level << ", ";
+            std::cout << "leaf = true , "
+			    << "bit = " << current->bit << ", "
+				<< "level = " << current->level << ", "
+			    << "mesif = " << current->line->getMESIF() << ", ";
             if (current->line == NULL)
             {
                 std::cout << "EMPTY" << std::endl;
