@@ -4,9 +4,8 @@
  * LAST MODIFIED: 11/24/2014
  * DESCRIPTION: This file implements the L3Line class.
  *****************************************************************************/
-
-#include "L3Line.h"
-#include "LruTree.h"
+ 
+#include "L3Line.h" 
 #include <iostream>
 #include <bitset>
 
@@ -19,9 +18,9 @@ using namespace std;
 */
 L3Line::L3Line()
 {
-    tagBits = '0';
-    mesifState = 3;
-    dirtyBit = 0;
+	tagBits = '0';
+	mesifState = 3;
+	dirtyBit = 0;
 }
 
 /**
@@ -34,17 +33,17 @@ L3Line::L3Line()
 */
 L3Line::L3Line(unsigned int tag, int mesifState)
 {
-    tagBits = tag;
-    this->mesifState = mesifState;
-    dirtyBit = 0;
+	tagBits = tag;
+	this->mesifState = mesifState;
+	dirtyBit = 0;
 }
 
 // destructor
 L3Line::~L3Line()
 {
-    tagBits = '0';
-    mesifState = 3;
-    dirtyBit = 0;
+	tagBits = '0';
+	mesifState = 3;
+	dirtyBit = 0;
 }
 
 /**
@@ -53,16 +52,18 @@ L3Line::~L3Line()
 */
 void L3Line::setMESIF(int state)
 {
-    mesifState = state;
+	mesifState = state;
+	if (state == 3 || state == 1 || state == 2 || state == 4) setDirtyBit(0);
+	else if (state == 0) setDirtyBit(1);
 }
 
 /**
 * DESC: Used to return the MESIF state of a line
-* RETURN: mesif state of line
+* RETURN: mesif state of line 
 */
 int L3Line::getMESIF()
 {
-    return mesifState;
+	return mesifState;
 }
 
 /**
@@ -71,7 +72,7 @@ int L3Line::getMESIF()
 */
 void L3Line::setTag(string tag)
 {
-    tagBits = tag;
+	tagBits = tag;
 }
 
 /**
@@ -80,7 +81,7 @@ void L3Line::setTag(string tag)
 */
 string L3Line::getTag()
 {
-    return tagBits;
+	return tagBits;
 }
 
 /**
@@ -89,7 +90,7 @@ string L3Line::getTag()
 */
 void L3Line::setDirtyBit(int x)
 {
-    dirtyBit = x;
+	dirtyBit = x;
 }
 
 /**
@@ -98,7 +99,7 @@ void L3Line::setDirtyBit(int x)
 */
 int L3Line::getDirtyBit()
 {
-    return dirtyBit;
+	return dirtyBit;
 }
 
 /**
@@ -106,105 +107,7 @@ int L3Line::getDirtyBit()
 */
 void L3Line::print()
 {
-    cout << "tag = " << tagBits << ", mesif = " << mesifState
-        << ", dirty = " << dirtyBit << endl;
+	cout << "tag = " << tagBits << ", mesif = " << mesifState
+		<< ", dirty = " << dirtyBit << endl;
 }
 
-
-
-// evict a line by replacing it with a new line
-// RET: pointer to evicted line on success
-//      NULL if failed
-L3Line* CLruTree::evict(BTreeNode* current, L3Line* newLine, L3Line* holdVictim)
-{
-  // check that current is not null
-  if (current == NULL)
-    {
-      return NULL;
-    }
-
-  // navigate tree until leaf is found
-  if (current->leaf != true)
-    {
-      // navigate left if bit is 0
-      if ((current->bit == 0) && (current->left != NULL))
-        {
-          current->bit = 1;  // flip bit
-          return evict(current->left, newLine, holdVictim);
-        }
-      // navigate right if bit is 1
-      else if ((current->bit == 1) && (current->right != NULL))
-        {
-          current->bit = 0;  // flip bit
-          return evict(current->right, newLine, holdVictim);
-        }
-      else
-        {
-          return NULL;
-        }
-    }
-  // at the leaf so replace line
-  else if (current->leaf == true)
-    {
-      // replace line in leaf with new line
-      holdVictim = current->line;
-      current->line = newLine;
-      if (!SILENT) std::cout << "Line was replaced\n";
-      return holdVictim;
-    }
-  else
-    {   // error occurred getting to this point
-      return NULL;
-    }
-}
-
-
-// evict a line by without replacing it with a new line, the evicted
-// line is the one with the matching tag
-// RET: pointer to evicted line on success
-//      NULL if failed
-L3Line* evict_noReplacement(BTreeNode* current, std::string tag, L3Line* holdVictim)
-{
-  // make sure current not null
-  if (current == NULL)
-    {
-      return NULL;
-    }
-
-  // check if node is a leaf
-  if (current->leaf == false)
-    {
-      // check if current node is leaf
-      if ((current->leaf) == false)
-        {   // continue navigating tree
-          if ((holdVictim = evict_noReplacement(current->right, tag, holdVictim)) != NULL)
-            {   // MRU found on right, set bit left=0
-              current->bit = 0;
-              return holdVictim;
-            }
-          else if ((holdVictim = evict_noReplacement(current->left, tag, holdVictim)) != NULL)
-            {   // MRU found on left, set bit right=1
-              current->bit = 1;
-              return holdVictim;
-            }
-          else
-            {   // no match found on left or right sides
-              return NULL;
-            }
-        }
-    }
-  // node is a leaf
-  else
-    {
-      if (current->line->getTag() == tag)
-        {   // line found
-          holdVictim = current->line;  // hold evicted lnie for return
-          current->line = NULL;  // empty the space in the cache
-          return holdVictim;
-        }
-      else
-        {   // line not found
-          return NULL;
-        }
-    }
-}
