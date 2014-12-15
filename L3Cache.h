@@ -7,6 +7,7 @@
 
 #pragma once
 #include "L3Set.h"
+#include <string>
 
 class L3Cache
 {
@@ -17,6 +18,11 @@ public:
 
   // destructor
   ~L3Cache();
+
+  int L3CacheInit();
+
+
+  int processOpcode(int opcode, string address);
 
   /**
    * DESC:
@@ -35,7 +41,7 @@ public:
    * POST-CONDITION:
    */
   int getSnoopResult(string tag);
-   
+
   int putSnoopResult(int address, int snoopResult);
 
   /**

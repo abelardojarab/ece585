@@ -54,7 +54,9 @@ int main(int argc, char* argv[])
             ss << std::hex << hexaddress;
             ss >> address;
             bitset<32> b(static_cast<int>(address));
-            cout<< "Read: opcode = "<<opcode<<", hexaddress = "<< hexaddress << ", address = "<<b.to_string()<<endl;
+
+            // Make cache receive the opcode and address
+            mycache->processOpcode(opcode,b.to_string());
 
             // cache command
           }

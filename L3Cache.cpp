@@ -10,6 +10,7 @@
 #include "L3Line.h"
 #include <string>
 #include <cstring>
+#include <iostream>
 
 // constructors
 L3Cache::L3Cache()
@@ -17,6 +18,8 @@ L3Cache::L3Cache()
 
   numLines = 256;
   numSets = 16;
+
+  L3CacheInit();
 
 }
 
@@ -26,7 +29,24 @@ L3Cache::L3Cache(int numLines, int numSets)
   this->numLines = numLines;
   this->numSets = numSets;
 
+  L3CacheInit();
+
 }
+
+// Allocates memory
+int L3Cache::L3CacheInit() {
+
+
+  return 0;
+}
+
+int L3Cache::processOpcode (int opcode, string address) {
+
+
+  cout<<"Received opcode = "<<opcode<<", address = "<<address<<endl;
+  return 0;
+}
+
 
 // destructor
 L3Cache::~L3Cache()
