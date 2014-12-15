@@ -79,9 +79,11 @@ int L3Cache::processOpcode (int opcode, string address) {
     break;
 
   case 1:
+    l3Sets[index].writeData(Result,0);
     break;
 
   case 2:
+    // nothing, this is very important instruction cache doesnt do snoop
     break;
 
   case 3:
