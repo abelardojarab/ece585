@@ -41,7 +41,7 @@ typedef struct
 
 // initialize a multi-dimensional array [row][col]
 // creates the single global cache
-cacheLine L2cache[LINES][WAYS];
+cacheLine L3cache[LINES][WAYS];
 
 FILE *ifp,*ofp;
 
@@ -58,9 +58,9 @@ void setLRUbitsToWay()
   {
     for (way = 0; way <= MAXWAY; way++)
     {
-       L2cache[index][way].LRUbits = way;
-       L2cache[index][way].MESIbits = 3;
-       L2cache[index][way].tag = 0;
+       L3cache[index][way].LRUbits = way;
+       L3cache[index][way].MESIbits = 3;
+       L3cache[index][way].tag = 0;
     }
   }
 }
@@ -72,7 +72,7 @@ int checkTag(int index, int tag)
   int way;
   for (way = 0; way <= MAXWAY; way++)
   {
-    if (L2cache[index][way].tag == tag)
+    if (L3cache[index][way].tag == tag)
        return way;
   }
   return WAYS;
@@ -86,7 +86,7 @@ int checkLRU(int index)
   int way;
   for (way = 0; way <= MAXWAY; way++)
   {
-    if (L2cache[index][way].LRUbits == 0)
+    if (L3cache[index][way].LRUbits == 0)
        return way;
   }
   return WAYS;
@@ -96,11 +96,11 @@ int checkLRU(int index)
 void updateLRU(int index, int ourway)
 {
   // if the LRU bits of our way are already the most recently used, we do nothing
-  if (L2cache[index][ourway].LRUbits == MAXWAY)
+  if (L3cache[index][ourway].LRUbits == MAXWAY)
      return;
   else
   {
-     int ourbits = L2cache[index][ourway].LRUbits;
+     int ourbits = L3cache[index][ourway].LRUbits;
      int testbits = ourbits++;
      int testway;
      for (testbits = 0; testbits <= MAXWAY; testbits++)
@@ -108,16 +108,16 @@ void updateLRU(int index, int ourway)
          testway = 0;
          while (testway <= MAXWAY)
          {
-            if (testbits == L2cache[index][testway].LRUbits)
+            if (testbits == L3cache[index][testway].LRUbits)
                {
-                  L2cache[index][testway].LRUbits--;
+                  L3cache[index][testway].LRUbits--;
                   break;
                }
             else
                testway++;
      }
      }
-     L2cache[index][ourway].LRUbits = MAXWAY;
+     L3cache[index][ourway].LRUbits = MAXWAY;
   }
 }
 
@@ -128,7 +128,7 @@ int testIndex(int index, int way)
 {
    for (way = 0; way <= MAXWAY; way++)
    {
-       if (L2cache[index][way].MESIbits != I)
+       if (L3cache[index][way].MESIbits != I)
        {
           return 0;
        }
@@ -158,10 +158,10 @@ void cacheDisplay()
              fprintf(ofp,"WAY %-8d LRU: %-4d MESI: %-10d TAG: %-8d"
                           " ADDR: 0x%-8x\n",
                           way,
-                          L2cache[index][way].LRUbits,
-                          L2cache[index][way].MESIbits,
-                          L2cache[index][way].tag,
-                          L2cache[index][way].address);
+                          L3cache[index][way].LRUbits,
+                          L3cache[index][way].MESIbits,
+                          L3cache[index][way].tag,
+                          L3cache[index][way].address);
              fflush(ofp);
           }
       }
@@ -173,7 +173,7 @@ void cacheDisplay()
 
 int main()
 {
-  memset(L2cache, 0, sizeof (cacheLine));
+  memset(L3cache, 0, sizeof (cacheLine));
 
   // initialize the counters
   int refCount = 0;
@@ -218,7 +218,7 @@ int main()
         // if the tag exists
     if (way <= MAXWAY)
     {
-       int MESI = L2cache[index][way].MESIbits;
+       int MESI = L3cache[index][way].MESIbits;
        // if this tag exists and it's valid as per its MESI bits
        if (MESI == M || MESI == E || MESI == S)
        {
@@ -232,7 +232,7 @@ int main()
            {
           missCount++;
               updateLRU(index, way);
-          L2cache[index][way].MESIbits = E;
+          L3cache[index][way].MESIbits = E;
        }
     }
         // this tag simply doesn't exist in the cache in any form
@@ -242,10 +242,10 @@ int main()
        // use the LRU bits to determine which way to evict
        way = checkLRU(index);
            updateLRU(index, way);
-           L2cache[index][way].tag = tag;
-       L2cache[index][way].MESIbits = E;
+           L3cache[index][way].tag = tag;
+       L3cache[index][way].MESIbits = E;
         }
-        L2cache[index][way].address = addr;
+        L3cache[index][way].address = addr;
     break;
       // 1 write data request from L1 cache
       case 1:
@@ -253,7 +253,7 @@ int main()
         way = checkTag(index, tag);
     if (way <= MAXWAY)
     {
-       int MESI = L2cache[index][way].MESIbits;
+       int MESI = L3cache[index][way].MESIbits;
        // if this tag exists and it's valid per its MESI bits...
        if (MESI == M || MESI == E || MESI == S)
           hitCount++;
@@ -262,16 +262,16 @@ int main()
               missCount++;
         }
         // if this tag simply doesn't exist in the cache in any form...
-        // this covers the very unlikely odd case where L1 has what L2 doesn't
+        // this covers the very unlikely odd case where L1 has what L3 doesn't
         else
     {
        missCount++;
        way = checkLRU(index);
-           L2cache[index][way].tag = tag;
+           L3cache[index][way].tag = tag;
         }
         updateLRU(index, way);
-        L2cache[index][way].MESIbits = M;
-        L2cache[index][way].address = addr;
+        L3cache[index][way].MESIbits = M;
+        L3cache[index][way].address = addr;
       break;
       // 4 snooped a read request from another processor
       case 4:
@@ -280,7 +280,7 @@ int main()
         // if the tag exists
     if (way <= MAXWAY)
     {
-       int MESI = L2cache[index][way].MESIbits;
+       int MESI = L3cache[index][way].MESIbits;
        // if this tag exists and is valid and modified per its MESI bits...
        if (MESI == M || MESI == E || MESI == S)
        {
@@ -291,8 +291,8 @@ int main()
               else
                  hit++;
               // then set MESI to shared
-          L2cache[index][way].MESIbits = S;
-              L2cache[index][way].address = addr;
+          L3cache[index][way].MESIbits = S;
+              L3cache[index][way].address = addr;
            }
        // if the tag exists but it's invalid then we don't have it...
            else
@@ -309,12 +309,12 @@ int main()
         // if the tag exists...
     if (way <= MAXWAY)
     {
-       int MESI = L2cache[index][way].MESIbits;
+       int MESI = L3cache[index][way].MESIbits;
        if (MESI == M || MESI == E || MESI == S)
               {
                  hitCount++;
-             L2cache[index][way].MESIbits = I;
-                 L2cache[index][way].address = addr;
+             L3cache[index][way].MESIbits = I;
+                 L3cache[index][way].address = addr;
                  updateLRU(index, way);
               }
        else
@@ -330,16 +330,16 @@ int main()
         // if the tag exists
     if (way <= MAXWAY)
     {
-       int MESI = L2cache[index][way].MESIbits;
+       int MESI = L3cache[index][way].MESIbits;
        // serve if modified tag exists, then invalidate
        if (MESI == M || MESI == E || MESI == S)
            {
               hitCount++;
               if (MESI == M)
                  hitM++;
-              L2cache[index][way].MESIbits = I;
+              L3cache[index][way].MESIbits = I;
               updateLRU(index, way);
-              L2cache[index][way].address = addr;
+              L3cache[index][way].address = addr;
            }
            else // if we don't have it, do nothing
               missCount++;

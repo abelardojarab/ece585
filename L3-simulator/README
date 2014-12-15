@@ -1,10 +1,4 @@
-########################## Part 1: original.c #################################
-
-This term project for a graduate class in microprocessor system design called
-for a small program in Verilog, C, or C++ to simulate (not synthesize) the
-behavior of a write-allocate, MESI protocol, four-way set associative L2 cache
-with 4K lines of 64 bytes data each.
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~ Part 1: original.c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Our C program was tested by running a text file containing lines of the type
   'n address'
 where
@@ -12,32 +6,21 @@ where
   'address' was some 32-bit address.
 
 Our demo program was successful for all tests except ensuring cache coherency.
-We designed the algorithm for each operation, designed testcase files (see the
-testcases folder) to verify each algorithm, chose a multidimensional array for
-the L2 cache itself, and implemented this all in C code.
-
-Team Members: Jen Hanni, Sai Prasanth, Brian Rho
 
 The final file submitted to the professor and used for the project demo can be
-found in original.c in this repo.
+found in base.c in this repo.
 
-########################## Part 2: extensibility ##############################
+~~~~~~~~~~~~~~~~~~~~~~~~~~ Part 2: extensibility ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-I felt that the quality of the code, especially after last-minute fixes, could
-be improved. Our prof challenged me to improve extensibility so that it would
+Code quality should be improved. Our prof challenged me to improve extensibility so that it would
 take less than fifteen minutes to change the size (number of lines) or set
 associativity (direct-mapped, fully associative).
 
-I have permission from my teammates to take this code, improve on it, and make
-it available at http://github.com/wicker/l2cache/ under the MIT license.
-
 The original file (original.c) had 646 lines, used while loops, assumed a four-way cache and so specified 0-3 for all functions that checked all ways in an index, haphazardly included DRAM and L1 printf access notes but not in all cases and not for any functional purpose, repeated lines of code instead of just calling a function, and failed on cache coherency.
 
-The final revised version (main.c) has 377 lines, uses for loops, uses a global variable to set cache size and can thus be used to simulate a direct mapped or x-way set associative cache, contains no DRAM or L1 printf access notes as they were outside the scope of the simulation, uses functions where appropriate, has an overhauled LRU algorithm, and makes use only of a single output file for the display.
+The final cache simulator still fails on cache coherency.
 
-The final cache simulator still fails on cache coherency but you can't have everything you want in life.
-
-######################### Instructions ########################################
+~~~~~~~~~~~~~~~~~~~~~~~~~ Instructions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To run this cache, you will need the following files:
 

@@ -1,5 +1,5 @@
 /* main.c
- * Jen Hanni, Brian Rho, Sai Prasanth
+
  * 
  * This file defines the entire program.
  * 
