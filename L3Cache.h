@@ -97,5 +97,5 @@ private:
   int numLines;
   int numSets;
   L3Set* l3Sets;
-
+  void* raw_memory;
 };
