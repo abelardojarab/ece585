@@ -298,13 +298,10 @@ L3Cache::~L3Cache()
 
 }
 
-/**
- * DESC:
- * PARAM:
- * RETURN:
- * PRE-CONDITION:
- * POST-CONDITION:
- */
+/*
+Used to simulate a bus operation and to capture the snoop results of last
+level caches of other processors
+*/
 void busOperation(std::string BusOp, std::string address, std::string snoopResult)
 {
 	*snoopResult = getSnoopResult(address);
@@ -314,14 +311,10 @@ void busOperation(std::string BusOp, std::string address, std::string snoopResul
   return 0;
 }
 
-/**
- * DESC:
+/*
+ * DESC: Used to simulate the reporting of snoop results by other caches
  * PARAM: state - MESIF, M=0, E=1, S=2, I=3, F=4
- * RETURN:
- * PRE-CONDITION:
- * POST-CONDITION:
  */
-
 int getSnoopResult(string tag)
 {
   if ((tag.at(0)==0)&&(tag.at(1)==0))
@@ -334,6 +327,9 @@ int getSnoopResult(string tag)
     return 3; // Not implemented
 }
 
+/*
+
+*/
 void putSnoopResult(int address, int snoopResult)
 {
 	#ifndef SILENT
