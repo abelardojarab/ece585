@@ -1,0 +1,97 @@
+Reference 7 displayed only indices containing valid numWays.
+Index number: 0x0       
+Way ---> 0        LRU ---> 11   MESI bits ----> 1          Tag ----> 0        Address: 0x0       
+Way ---> 1        LRU ---> 12   MESI bits ----> 1          Tag ----> 1        Address: 0x100000  
+Way ---> 2        LRU ---> 13   MESI bits ----> 1          Tag ----> 2        Address: 0x200000  
+Way ---> 3        LRU ---> 14   MESI bits ----> 1          Tag ----> 3        Address: 0x300000  
+Way ---> 4        LRU ---> 15   MESI bits ----> 1          Tag ----> 4        Address: 0x400000  
+Way ---> 5        LRU ---> 0    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 6        LRU ---> 1    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 7        LRU ---> 2    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 8        LRU ---> 3    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 9        LRU ---> 4    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 10       LRU ---> 5    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 11       LRU ---> 6    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 12       LRU ---> 7    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 13       LRU ---> 8    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 14       LRU ---> 9    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 15       LRU ---> 10   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Reference 8 called for the cache to be reset. No numWays are valid.
+Reference 9 displayed only indices containing valid numWays.
+Reference 16 displayed only indices containing valid numWays.
+Index number: 0x0       
+Way ---> 0        LRU ---> 11   MESI bits ----> 1          Tag ----> 0        Address: 0x0       
+Way ---> 1        LRU ---> 12   MESI bits ----> 1          Tag ----> 1        Address: 0x100000  
+Way ---> 2        LRU ---> 13   MESI bits ----> 1          Tag ----> 2        Address: 0x200000  
+Way ---> 3        LRU ---> 14   MESI bits ----> 1          Tag ----> 3        Address: 0x300000  
+Way ---> 4        LRU ---> 15   MESI bits ----> 1          Tag ----> 4        Address: 0x400000  
+Way ---> 5        LRU ---> 0    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 6        LRU ---> 1    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 7        LRU ---> 2    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 8        LRU ---> 3    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 9        LRU ---> 4    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 10       LRU ---> 5    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 11       LRU ---> 6    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 12       LRU ---> 7    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 13       LRU ---> 8    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 14       LRU ---> 9    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 15       LRU ---> 10   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Reference 17 called for the cache to be reset. No numWays are valid.
+Reference 18 displayed only indices containing valid numWays.
+Reference 25 displayed only indices containing valid numWays.
+Index number: 0x0       
+Way ---> 0        LRU ---> 11   MESI bits ----> 0          Tag ----> 0        Address: 0x0       
+Way ---> 1        LRU ---> 12   MESI bits ----> 0          Tag ----> 1        Address: 0x100000  
+Way ---> 2        LRU ---> 13   MESI bits ----> 0          Tag ----> 2        Address: 0x200000  
+Way ---> 3        LRU ---> 14   MESI bits ----> 0          Tag ----> 3        Address: 0x300000  
+Way ---> 4        LRU ---> 15   MESI bits ----> 0          Tag ----> 4        Address: 0x400000  
+Way ---> 5        LRU ---> 0    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 6        LRU ---> 1    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 7        LRU ---> 2    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 8        LRU ---> 3    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 9        LRU ---> 4    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 10       LRU ---> 5    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 11       LRU ---> 6    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 12       LRU ---> 7    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 13       LRU ---> 8    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 14       LRU ---> 9    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 15       LRU ---> 10   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Reference 26 called for the cache to be reset. No numWays are valid.
+Reference 27 displayed only indices containing valid numWays.
+Reference 32 displayed only indices containing valid numWays.
+Index number: 0x1       
+Way ---> 0        LRU ---> 12   MESI bits ----> 1          Tag ----> 1        Address: 0x100040  
+Way ---> 1        LRU ---> 13   MESI bits ----> 1          Tag ----> 2        Address: 0x200040  
+Way ---> 2        LRU ---> 14   MESI bits ----> 1          Tag ----> 3        Address: 0x300040  
+Way ---> 3        LRU ---> 15   MESI bits ----> 1          Tag ----> 4        Address: 0x400040  
+Way ---> 4        LRU ---> 0    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 5        LRU ---> 1    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 6        LRU ---> 2    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 7        LRU ---> 3    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 8        LRU ---> 4    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 9        LRU ---> 5    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 10       LRU ---> 6    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 11       LRU ---> 7    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 12       LRU ---> 8    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 13       LRU ---> 9    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 14       LRU ---> 10   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 15       LRU ---> 11   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Reference 38 displayed only indices containing valid numWays.
+Index number: 0x1       
+Way ---> 0        LRU ---> 13   MESI bits ----> 3          Tag ----> 1        Address: 0x100040  
+Way ---> 1        LRU ---> 10   MESI bits ----> 2          Tag ----> 2        Address: 0x200040  
+Way ---> 2        LRU ---> 14   MESI bits ----> 3          Tag ----> 3        Address: 0x300040  
+Way ---> 3        LRU ---> 15   MESI bits ----> 3          Tag ----> 4        Address: 0x400040  
+Way ---> 4        LRU ---> -1   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 5        LRU ---> -1   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 6        LRU ---> -1   MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 7        LRU ---> 0    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 8        LRU ---> 1    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 9        LRU ---> 2    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 10       LRU ---> 3    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 11       LRU ---> 4    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 12       LRU ---> 5    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 13       LRU ---> 6    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 14       LRU ---> 7    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Way ---> 15       LRU ---> 8    MESI bits ----> 3          Tag ----> 0        Address: 0x0       
+Reference 39 called for the cache to be reset. No numWays are valid.
