@@ -1,7 +1,0 @@
-#!/bin/bash
-# Test the L2 cache
-
-make clean
-make all
-./main
-cat display.txt
